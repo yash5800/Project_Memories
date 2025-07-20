@@ -40,7 +40,7 @@ const Profiles = () => {
   console.log(profileDetails)
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}profiles.json`)
+    fetch(`${import.meta.env.BASE_URL}profilesDetails.json`)
       .then(res => res.json())
       .then(data => setProfileDetails(data));
   }, []);
