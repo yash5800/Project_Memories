@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Alice';
+  src: url('/fonts/Alice-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Caveat';
+  src: url('/fonts/Caveat-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'LuckiestGuy';
+  src: url('/fonts/LuckiestGuy-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+
+body{
+  background: black;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.alice{
+  font-family: 'Alice',sans-serif;
+}
+.caveat{
+  font-family: 'Caveat',sans-serif;
+}
+.luck{
+  font-family: 'LuckiestGuy',sans-serif;
+}
+
+@tailwind utilities;
+
+/* Custom utility (optional gradient text) */
+@layer utilities {
+  .text-gold {
+    background: linear-gradient(
+      to bottom,
+      #FFD700 0%,
+      #FFD700 70%,
+      #000000 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .text-graident {
+    background: linear-gradient(
+      to bottom,
+      #ffffff,
+      #898989
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .cardp{
+    width: 200px;
+    height: 270px;
+    padding: 10px;
+    border-radius: 12px;
+    background-color: black;
+    position: relative;
+    /* border-bottom: 1px gray solid; */
+    /* box-shadow: 0px 0px 4px #ffffff; */
+  }
+  .cardp::before{
+    position: absolute;
+    top: -2px;
+    left: -2.5px;
+    content: '';
+    width: 205px;
+    height: 230px;
+    border-radius: 12px;
+    background-image: linear-gradient(to bottom,aqua,black);
+    z-index: -1;
+    transition: all .5s linear;
+
+  }
+  .cardp:hover::before{
+    
+    height: 274px;
+    background-image: linear-gradient(to bottom,aqua,aqua);
+  }
+}
