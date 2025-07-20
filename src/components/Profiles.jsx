@@ -15,7 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
 const Card = ({name,rollno,insta,linkedin,profileUrl})=>{
   return(
     <div className='cardp justify-center items-center flex flex-col'>
-      <img src={profileUrl?profileUrl:"StartGroup.png"} alt="profile" className='w-30 h-30 rounded-full object-cover' />
+      <img src={profileUrl?`profiles/${profileUrl}`:"StartGroup.png"} alt="profile" className='w-30 h-30 rounded-full object-cover' />
        <div className='p-3 text-center'>
         <p className='text-lg text-gray-400 caveat'>{name}</p>
         <p className='text-base text-slate-500 font-thin'>{rollno}</p>
