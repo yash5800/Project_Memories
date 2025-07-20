@@ -102,7 +102,7 @@ const Profiles = () => {
     </div>
     
     {view && <div className='h-full w-screen fixed top-0 flex justify-center items-center backdrop-blur-xl'>
-        <div ref={point} className='scale-80 min-lg:scale-50 bg-yellow-200 z-10'>
+        <div ref={point} className='scale-80 min-lg:scale-50 max-md:scale-105 bg-yellow-200 z-10'>
            <img src={view} alt="View" />
         </div>
     </div>}
