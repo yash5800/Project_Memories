@@ -12,10 +12,10 @@ gsap.registerPlugin(ScrollTrigger);
   //   profileUrl:''
   // }
 
-const Card = ({name,rollno,insta,linkedin,profileUrl})=>{
+const Card = ({name,rollno,insta,linkedin,profileUrl,handleClick})=>{
   return(
     <div className='cardp justify-center items-center flex flex-col'>
-      <img src={profileUrl?`profiles/${profileUrl}`:"StartGroup.png"} alt="profile" className='w-30 h-30 rounded-full object-cover' />
+      <img onClick={()=>handleClick(profileUrl?`profiles/${profileUrl}`:"StartGroup.png")} src={profileUrl?`profiles/${profileUrl}`:"StartGroup.png"} alt="profile" className='w-30 h-30 rounded-full object-cover' />
        <div className='p-3 text-center'>
         <p className='text-lg text-gray-400 caveat'>{name}</p>
         <p className='text-base text-slate-500 font-thin'>{rollno}</p>
@@ -33,16 +33,34 @@ const Card = ({name,rollno,insta,linkedin,profileUrl})=>{
 }
 
 const Profiles = () => {
+  const [view,setView] = useState('');
+  const point = useRef();
 
   const profiles = useRef()
   const [profileDetails, setProfileDetails] = useState(null);
 
-  console.log(profileDetails)
+  const handleClick = (url)=>{
+    console.log(url)
+    setView(url)
+  }
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}profilesDetails.json`)
       .then(res => res.json())
       .then(data => setProfileDetails(data));
+
+    let handler = (e)=>{
+      if(point.current && !point.current.contains(e.target)){
+        setView('');
+        console.log(point.current)
+      }
+    }
+
+    document.addEventListener("mousedown",handler);
+
+    return()=>{
+      document.removeEventListener("mousedown",handler)
+    }
   }, []);
 
   useLayoutEffect(()=>{
@@ -68,7 +86,8 @@ const Profiles = () => {
   },[])
 
   return (
-    <div className='p-5' ref={profiles}>
+    <>
+    <div className='p-5 z-0' ref={profiles}>
       <h1 className='text-3xl text-graident 
       text-center
       font-bold'>Friends</h1>
@@ -76,11 +95,18 @@ const Profiles = () => {
         {
           profileDetails &&
           profileDetails.map((student,index)=>(
-            <Card key={`${index}-${student.rollno}`} name={student.name} rollno={student.rollno} insta={student.insta} linkedin={student.linkedin} profileUrl={student.profileUrl} />
+            <Card key={`${index}-${student.rollno}`} name={student.name} rollno={student.rollno} insta={student.insta} linkedin={student.linkedin} profileUrl={student.profileUrl} handleClick={handleClick} />
           ))
         }
       </div>
     </div>
+    
+    {view && <div className='h-full w-screen fixed top-0 flex justify-center items-center backdrop-blur-xl'>
+        <div ref={point} className='max-md:scale-75 scale-50 bg-yellow-200 z-10'>
+           <img src={view} alt="View" />
+        </div>
+    </div>}
+    </>
   )
 }
 
