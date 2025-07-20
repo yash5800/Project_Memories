@@ -1,4 +1,3 @@
-import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger, SplitText } from 'gsap/all'
 import React, { useLayoutEffect, useRef } from 'react'
