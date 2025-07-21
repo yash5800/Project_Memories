@@ -33,8 +33,8 @@ const Card = ({name,rollno,insta,linkedin,profileUrl,handleClick})=>{
       </div>
       <div className={`${active? 'block z-10':'hidden'} p-3 max-w-[170px] absolute bg-white rounded-xl text-center flex flex-col gap-2 `}>
         <div className='flex flex-col items-start'>
-         <p className='text-[12px] text-thin'>Roll No :</p>
-         <p className='text-base font-medium capitalize text-black'>{rollno}</p>
+         <p className='text-[12px] text-thin libre'>Roll No :</p>
+         <p className='text-base font-medium capitalize libre text-black'>{rollno}</p>
         </div>
          <div className='flex flex-row justify-center gap-6'>
            {insta && <a href={insta} target='_blank'>

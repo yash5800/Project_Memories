@@ -18,7 +18,12 @@
   font-weight: 400;
   font-display: swap;
 }
-
+@font-face {
+  font-family: 'Libre';
+  src: url('/fonts/LibreBaskerville-Bold.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+}
 
 body{
   background: rgb(13, 15, 18);
@@ -34,6 +39,9 @@ body{
 }
 .luck{
   font-family: 'LuckiestGuy',sans-serif;
+}
+.libre{
+  font-family: 'Libre', sans-serif;
 }
 
 @tailwind utilities;
