@@ -120,4 +120,14 @@ body{
     background-image: linear-gradient(to top right, rgb(0, 15, 25),rgb(0, 43, 71));
   }
 
+  /* Add this to your global CSS */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
 }

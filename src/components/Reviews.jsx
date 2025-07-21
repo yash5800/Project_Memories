@@ -1,38 +1,40 @@
 import React from 'react'
+import '../scroll.css' // Custom CSS for smooth animation
 
-const Card = ()=>{
+const Card = () => {
   return (
-    <div className='reviewCard gap-3'>
-       <div className='w-full flex justify-between items-center flex-row'>
-        <div className='w-14 h-14 rounded-full overflow-hidden '>
-          <img src='StartGroup.png' rel='pic' className='object-cover w-full h-full ' />
+    <div className='reviewCard w-[300px] p-4 bg-gray-800 rounded-xl text-white mx-2'>
+      <div className='flex justify-between items-center mb-2'>
+        <div className='w-14 h-14 rounded-full overflow-hidden'>
+          <img src='StartGroup.png' alt='pic' className='object-cover w-full h-full' />
         </div>
         <p className='text-sm text-gray-300'>Jan,10 2004</p>
-       </div>
-       <div className='w-full justify-center px-2 break-words' >
-         <p className='text-md text-slate-300'>In a world similar to the European Middle Ages, the feared yet revered Holy Knights of Britannia use immensely powerful magic to protect the region of Britannia and its kingdoms.</p>
-       </div>
-       <div className='w-full text-end'>
-         <p className='text-sm text-gray-500'>~ Basker</p>
-       </div>
+      </div>
+      <p className='text-md text-slate-300 mb-2'>
+        In a world similar to the European Middle Ages, the feared yet revered Holy Knights...
+      </p>
+      <div className='text-right'>
+        <p className='text-sm text-gray-500'>~ Basker</p>
+      </div>
     </div>
   )
 }
 
 const Reviews = () => {
   return (
-    <div className='flex  flex-col py-5 gap-7'>
+    <div className='flex flex-col py-5 gap-7'>
       <div className='w-full justify-start px-10'>
-       <p className='text-graidentBlue text-2xl font-bold'>Teacher</p>
+        <p className='text-graidentBlue text-2xl font-bold'>Teacher</p>
       </div>
-      <div className='flex flex-row gap-3 justify-start px-4 items-center overflow-x-scroll '>
+
+      <div className='overflow-hidden w-full'>
+        <div className='flex animate-scroll-x w-max'>
           <Card />
           <Card />
           <Card />
           <Card />
           <Card />
-          <Card />
-          <Card />
+        </div>
       </div>
     </div>
   )
