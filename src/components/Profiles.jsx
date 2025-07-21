@@ -13,21 +13,46 @@ gsap.registerPlugin(ScrollTrigger);
   // }
 
 const Card = ({name,rollno,insta,linkedin,profileUrl,handleClick})=>{
+  const [active,setActive] = useState(false);
   return(
-    <div className='cardp justify-center items-center flex flex-col'>
-      <img onClick={()=>handleClick(profileUrl?`profiles/${profileUrl}`:"StartGroup.png")} src={profileUrl?`profiles/${profileUrl}`:"StartGroup.png"} alt="profile" className='w-30 h-30 rounded-full object-cover' />
-       <div className='p-3 text-center'>
+    <div className='cardp justify-center items-center flex flex-col main overflow-hidden' 
+    >
+      <div onClick={()=>setActive(!active)} className='w-[25px] h-[25px] top-3 absolute backdrop-blur-[3px] rounded-full p-1 right-3 hover:cursor-pointer z-10'>
+        <img src='icons/info.png' className='w-full h-full object-cover' />
+      </div>
+      <img 
+        src={profileUrl?`profiles/${profileUrl}`:"StartGroup.png"} 
+        alt="profile" 
+        className='w-full h-full rounded-[12px] object-cover pro'
+      />
+      <div className={`filter rounded-[12px]  ${active?'backdrop-blur-[1px] z-1':'z-0'}`}
+       onClick={()=>handleClick(profileUrl?`profiles/${profileUrl}`:"StartGroup.png")}
+      ></div>
+      <div className='absolute bottom-3 p-3 left-3 '>
+         <p className='text-white font-medium capitalize text-base'>{name.toLowerCase()}</p>
+      </div>
+      <div className={`${active? 'block z-10':'hidden'} p-3 max-w-[170px] absolute bg-white rounded-xl text-center flex flex-col gap-2 `}>
+        <div className='flex flex-col items-start'>
+         <p className='text-[12px] text-thin'>Roll No :</p>
+         <p className='text-base font-medium capitalize text-black'>{rollno}</p>
+        </div>
+         <div className='flex flex-row justify-center gap-6'>
+           {insta && <a href={insta} target='_blank'>
+             <div className='shadow-md shadow-black rounded-full w-7 h-7 overflow-hidden border-2 border-white hover:scale-125'>
+              <img src='icons/insta.svg' alt="Instagrame"  className='scale-115 w-full h-full object-cover' />
+             </div>
+           </a>}
+           {linkedin && <a href={linkedin} target='_blank'>
+             <div className='shadow-md shadow-black rounded-full w-7 h-7 overflow-hidden border-2 border-white hover:scale-125'>
+              <img src='icons/linkedin.svg' alt="LinkedIn"  className='scale-115 w-full h-full object-cover' />
+             </div>
+           </a>}
+         </div>
+      </div>
+       {/* <div className='p-3 text-center'>
         <p className='text-lg text-gray-400 caveat'>{name}</p>
         <p className='text-base text-slate-500 font-thin'>{rollno}</p>
-       </div>
-       <div className='flex flex-row gap-6'>
-         {insta && <a href={insta} target='_blank'>
-           <img src='icons/insta.svg' alt="Instagrame" className='w-6 h-6 hover:scale-130' />
-         </a>}
-         {linkedin && <a href={linkedin} target='_blank'>
-           <img src='icons/linkedin.svg' alt="LinkedIn" className='w-6 h-6 hover:scale-130' />
-         </a>}
-       </div>
+       </div> */}
     </div>
   )
 }
@@ -79,7 +104,6 @@ const Profiles = () => {
           start:'top bottom',
           end:'top 40%',
           scrub: true,
-          markers:true
         },
       ease:'expo.inOut',
     })
@@ -102,7 +126,7 @@ const Profiles = () => {
     </div>
     
     {view && <div className='h-full w-screen fixed top-0 flex justify-center items-center backdrop-blur-xl'>
-        <div ref={point} className='scale-80 min-lg:scale-50 max-md:scale-105 bg-yellow-200 z-10'>
+        <div ref={point} className='scale-80 min-lg:scale-50 max-md:scale-75 bg-yellow-200 z-10'>
            <img src={view} alt="View" />
         </div>
     </div>}

@@ -41,8 +41,7 @@ const Branch = () => {
           trigger: quote.current,
           start:'top 70%',
           end:'top 40%',
-          scrub: true,
-          markers:true
+          scrub: true
         },
       ease:'expo.out',
       stagger:0.2,
