@@ -2,6 +2,7 @@ import React from 'react'
 import StartGroup from './components/StartGroup'
 import Branch from './components/Branch'
 import Profiles from './components/Profiles'
+import Home from './components/Home'
 
 const App = () => {
   return (
@@ -9,6 +10,7 @@ const App = () => {
       <StartGroup />
       <Branch />
       <Profiles />
+      <Home />
     </section>
 
   )
