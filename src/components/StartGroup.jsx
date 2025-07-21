@@ -1,5 +1,4 @@
 import React, { useLayoutEffect } from 'react'
-import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 
 const StartGroup = () => {
