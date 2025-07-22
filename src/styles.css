@@ -92,6 +92,10 @@ a {
 .card {
   position: relative;
   padding-block: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .card__bg, 

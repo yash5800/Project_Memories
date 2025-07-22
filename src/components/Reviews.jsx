@@ -24,10 +24,10 @@ const Reviews = () => {
   return (
     <div className='flex flex-col py-5 gap-7'>
       <div className='w-full justify-start px-10'>
-        <p className='text-graidentBlue text-2xl font-bold'>Teacher</p>
+        <p className='text-graidentBlue text-2xl font-bold'>Faculty Opinions</p>
       </div>
 
-      <div className='overflow-hidden w-full'>
+      <div className='no-scrollbar w-full'>
         <div className='flex animate-scroll-x w-max'>
           <Card />
           <Card />

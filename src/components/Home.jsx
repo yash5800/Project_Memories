@@ -5,7 +5,7 @@ import kk from './details.json';
 
 function Home() {
   return (
-    <section className="card overflow-hidden">
+    <section className="card">
       {/* <img src={BackImage} alt="background" className="card__bg" />
       <div className="card__blur"></div> */}
       <div className="card__header">
