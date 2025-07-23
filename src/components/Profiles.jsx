@@ -29,7 +29,7 @@ const Card = ({name,rollno,insta,linkedin,profileUrl,handleClick})=>{
        onClick={()=>handleClick(profileUrl?`profiles/${profileUrl}`:"StartGroup.png")}
       ></div>
       <div className='absolute bottom-3 p-3 left-3 username'>
-         <p className='text-white font-medium capitalize text-base'>{name.toLowerCase()}</p>
+         <p className='text-white font-medium capitalize text-base username'>{name.toLowerCase()}</p>
       </div>
       <div className={`${active? 'block z-10':'hidden'} p-3 max-w-[170px] absolute bg-white rounded-xl text-center flex flex-col gap-2 `}>
         <div className='flex flex-col items-start'>
@@ -90,6 +90,7 @@ const Profiles = () => {
 
   useLayoutEffect(()=>{
 
+
     gsap.fromTo(profiles.current,
       {
         opacity:0,
@@ -108,6 +109,9 @@ const Profiles = () => {
         },
       ease:'expo.inOut',
     })
+
+    
+
   },[profileDetails])
 
   return (

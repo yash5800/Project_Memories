@@ -1,5 +1,5 @@
 import React from 'react'
-import '../scroll.css' // Custom CSS for smooth animation
+
 
 const Card = () => {
   return (
@@ -14,7 +14,7 @@ const Card = () => {
         In a world similar to the European Middle Ages, the feared yet revered Holy Knights...
       </p>
       <div className='text-right'>
-        <p className='text-sm text-gray-500'>~ Basker</p>
+        <p className='text-sm text-gray-500'>~ Name</p>
       </div>
     </div>
   )
@@ -28,7 +28,7 @@ const Reviews = () => {
       </div>
 
       <div className='no-scrollbar w-full'>
-        <div className='flex animate-scroll-x w-max'>
+        <div className='flex animate-scroll-x w-max pl-2'>
           <Card />
           <Card />
           <Card />

@@ -1,6 +1,7 @@
 import gsap from 'gsap'
 import { ScrollTrigger, SplitText } from 'gsap/all'
 import React, { useLayoutEffect, useRef } from 'react'
+import Book from './Book';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -55,11 +56,7 @@ const Branch = () => {
        <div>
          <p className='luck max-sm:text-6xl max-lg:text-7xl text-8xl text-white code'>22 BATCH</p>
        </div>
-       <div ref={quote} className='max-sm:w-[250px] max-lg:w-[400px] w-[500px]'>
-          <p className='text-lg text-slate-400 alice text'>
-            if you want multiple different components (like Profile, About, Footer, etc.) to each trigger their own scroll animations when entering the viewport, here’s how to do it cleanly in React + GSAP + ScrollTrigger.
-          </p>
-       </div>
+     <Book />
     </div>
   )
 }
