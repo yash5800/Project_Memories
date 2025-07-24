@@ -49,14 +49,80 @@ const Branch = () => {
       delay:1
     })
 
+    
+    gsap.utils.toArray('.section').forEach((section) => {
+      const sectionTween = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          end: 'top 30%',
+          scrub: true,
+          // markers: true,
+        }
+      })
 
+      sectionTween.fromTo(section, {
+        scale: 0.9,
+        opacity: 0,
+      }, {
+        scale: 1,
+        zIndex: 1,
+        opacity: 1,
+        duration: 1.5,
+        ease: 'power2.out',
+
+      });
+
+      sectionTween.fromTo(section.querySelectorAll('.text'), {
+        opacity: 0,
+        y:50
+      }, {
+        y: 0,
+        opacity: 1,
+        duration: 1.5,
+        ease: 'power2.out',
+        stagger: 0.2
+      });
+    });
+
+    
   },[])
+
+  const test = [`Namaskaaram Priyamaina Paathakulaara..! 🙏🏻
+         
+          2022
+          
+          Appude oka 'mahammari' prabhanjananni thattuku nilabadi, enno parishkalni daati, entho aanandanga gadipina pasipraayanni vidichi vachham...
+
+          Ee Ede maa tholi parichayam ee suvishala prapancha pravahamlo andaru kothhavalle , edo theliyani gubulu ,edo cheyyalanna thalampu, inkedo saadhidda manna pattudala ,  alaaa oka kothha adhyayam modalu pettam...`
+          ,
+          `Cheppedemundi, elaa gaithe andaru bayata anukuntaro ade jarigindi, elaa anni subjects lo top cheyyali ani sagam elaa anni subjects pass ithe chaalu ani mari sagam nischayinchukoni Modati adugu vesam...
+
+      Enno kothha vishayalu, inkenno kothha parichayalu, marenno manchi maatalu ede ee edadi visheshaalu.
+
+      Oka vyakthi, Rendu kothha bhaashalu , okati anni bhaashalaku thalli lanti bhaasha, inkoti annitilo kella sulabhamaina bhaasha (alaa ani valla nammakam, mammalni em anakandi) nerpinche kramamlo , andari priyatama upadhayudai thana prathibha paatavaalatho ,meppinchi, navvinchi,kavvinchi thanani ennadu maravakunda oka gatti punadi vesukunnaru maa hrudayalalo mariyu maa jeevithaalalo...`
+        
+]
   return (
-    <div className='relative flex flex-col justify-center items-center p-3 gap-10 '>
+    <div className='relative flex flex-col justify-center items-center  '>
        <div>
          <p className='luck max-sm:text-6xl max-lg:text-7xl text-8xl text-white code'>22 BATCH</p>
        </div>
-     <Book />
+     {/* <Book /> */}
+      <div className='stack-container w-full px-3 flex justify-center items-center flex-col'>
+        {
+          test.map((raw, index) => (
+            <div key={index} className='section flex justify-center items-center flex-col gap-3 bg-[#0d0f12]'>
+               {raw.split('\n').map((line, index) => (
+                <p key={index} className='text text-white text-lg max-lg:max-w-md max-w-xl'>
+                  {line}
+                </p>
+              ))}  
+            </div>
+          ))
+        }
+      </div>
+
     </div>
   )
 }
