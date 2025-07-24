@@ -130,5 +130,22 @@ body{
   scrollbar-width:none;
 }
 
+.section {
+  min-height: 100vh;
+  position: sticky;
+  top: 0;
+  will-change: transform;
+}
+
+.stack-container {
+  position: relative;
+}
+/* 
+.section:nth-child(1) { z-index: 5; }
+.section:nth-child(2) { z-index: 4; }
+.section:nth-child(3) { z-index: 3; } */
+/* and so on */
+
+
 
 }

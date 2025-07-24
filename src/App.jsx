@@ -6,7 +6,6 @@ import Reviews from './components/Reviews'
 import Home from './components/Home'
 import NavBar from './components/NavBar'
 
-
 const App = () => {
   return (
     <section>
