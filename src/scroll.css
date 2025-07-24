@@ -1,4 +1,23 @@
 .custom-scroll {
   scrollbar-width: none;
 }
+.flipbook-wrapper {
+  transform: scale(1);
+  transform-origin: top center;
+  transition: transform 0.3s ease;
+}
 
+@media (max-width: 400px) {
+  .flipbook-wrapper {
+    transform: scale(0.85);
+  }
+}
+
+@media (max-width: 350px) {
+  .memo_para {
+    font-size: 0.9rem;
+  }
+  .flipbook-wrapper {
+    transform: scale(0.75);
+  }
+}

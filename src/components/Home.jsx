@@ -1,7 +1,7 @@
 import '../styles.css';
 import Image1 from '../assets/img-2.png';
 import BackImage from '../assets/img-bg.png';
-import kk from './details.json';
+import kk from '../libs/details.json';
 
 function Home() {
   return (

@@ -54,7 +54,7 @@ const Branch = () => {
   return (
     <div className='relative flex flex-col justify-center items-center p-3 gap-10 '>
        <div>
-         <p className='luck max-sm:text-6xl max-lg:text-7xl text-8xl text-white code'>22 BATCH</p>
+         <p className='luck max-sm:text-6xl max-lg:text-7xl text-8xl text-white code mb-30'>22 BATCH</p>
        </div>
      <Book />
     </div>
