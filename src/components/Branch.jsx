@@ -108,20 +108,8 @@ const Branch = () => {
        <div>
          <p className='luck max-sm:text-6xl max-lg:text-7xl text-8xl text-white code'>22 BATCH</p>
        </div>
-     {/* <Book /> */}
-      <div className='stack-container w-full px-3 flex justify-center items-center flex-col'>
-        {
-          test.map((raw, index) => (
-            <div key={index} className='section flex justify-center items-center flex-col gap-3 bg-[#0d0f12]'>
-               {raw.split('\n').map((line, index) => (
-                <p key={index} className='text text-white text-lg max-lg:max-w-md max-w-xl'>
-                  {line}
-                </p>
-              ))}  
-            </div>
-          ))
-        }
-      </div>
+     <Book />
+      
 
     </div>
   )
