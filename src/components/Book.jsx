@@ -1,8 +1,11 @@
 import gsap from 'gsap';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 
 import '../scroll.css'
+import { SplitText } from 'gsap/all';
+
+gsap.registerPlugin(SplitText);
 
 const Button = ({content,active,setActive})=>{
   const but = useRef();
@@ -52,6 +55,34 @@ const Button = ({content,active,setActive})=>{
 
 const Book = () => {
   const [active, setActive] = useState('En');
+  let ismobile = window.innerWidth < 768;
+
+  useLayoutEffect(()=>{
+
+    gsap.fromTo('.headbook',
+      {
+        y: 50,
+        opacity: 0
+      },
+      {
+        y:0,
+        opacity: 1,
+        duration:1.5,
+        ease: 'power1.out'
+    })
+
+    const textlines = new SplitText('.pbook', { type: 'lines' });
+
+    gsap.from(textlines.lines, {
+      yPercent: 100,
+      opacity: 0,
+      duration: 1.5,
+      ease: 'power1.out',
+      stagger: 0.2,
+      delay: 0.5
+    });
+
+  },[])
 
   const data = {
     'Tl': {
@@ -97,8 +128,8 @@ const Book = () => {
   return (
     <div id='book' className='overflow-hidden flex justify-center items-center p-5 max-md:flex-col max-sm:gap-3'>
       <div className='z-1 justify-center items-center flex flex-col min-xl:h-[400px] bg-[#0d0f12]'>
-        <h1 className='text-3xl text-gray-400 font-bold mb-5'>Memories Book</h1>
-        <p className='text-gray-500 max-w-lg max-lg:max-w-md'>
+        <h1 className='text-3xl text-gray-400 font-bold mb-5 headbook'>Memories Book</h1>
+        <p className='text-gray-500 max-w-lg max-lg:max-w-md pbook'>
           This book contains the memories of our 22 batch. Each page represents a unique moment, from our first day to the last farewell. Flip through the pages to relive those unforgettable times!
         </p>
         <div
@@ -110,8 +141,8 @@ const Book = () => {
         </div>
       </div>
       <HTMLFlipBook
-        width={270}
-        height={350}
+        width={ismobile?300:400}
+        height={ismobile?500:500}
         maxShadowOpacity={0.5}
         drawShadow={true}
         size="fixed"
@@ -119,13 +150,13 @@ const Book = () => {
       >
         {/* Page 1 */}
         <div className="custom-scroll flex flex-col justify-center items-center p-5 bg-gradient-to-br from-yellow-100 via-pink-200 to-purple-300 rounded-sm overflow-y-scroll page">
-          <p className="text-base text-gray-700 whitespace-pre-line">{data[active].page1}</p>
+          <p className={`${ismobile?'text-sm':'text-base'} text-gray-700 whitespace-pre-line`}>{data[active].page1}</p>
           <p className="text-sm text-gray-500 text-center mt-2">- 1 -</p>
         </div>
 
         {/* Page 2 */}
         <div className="custom-scroll overflow-y-scroll flex flex-col justify-center items-center p-5 bg-gradient-to-tr from-green-100 via-lime-200 to-emerald-300 rounded-sm page">
-          <p className="text-base text-gray-700 whitespace-pre-line">{data[active].page2}</p>
+          <p className={`${ismobile?'text-sm':'text-base'} text-gray-700 whitespace-pre-line`}>{data[active].page2}</p>
           <p className="text-sm text-gray-500 text-center mt-2">- 2 -</p>
         </div>
 
