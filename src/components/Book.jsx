@@ -149,7 +149,7 @@ This journey we've taken — will never be forgotten.`
    <div id = 'book' className='overflow-hidden flex justify-center items-center p-5 max-md:flex-col max-sm:gap-3 max-sm:p-2 w-full max-w-[1000px] mx-auto'>
       <div className='z-1 justify-center items-center flex flex-col min-xl:h-[400px] bg-[#0d0f12]'>
         <h1 className='text-3xl text-gray-400 font-bold mb-5'>Memories Book</h1>
-        <p className='memo_para text-justify text-gray-500 max-w-lg max-lg:max-w-md'>
+        <p className='memo_para px-3 text-justify text-gray-500 max-w-lg max-lg:max-w-md'>
           This book contains the memories of our 22 batch. Each page represents a unique moment, from our first day to the last farewell. Flip through the pages to relive those unforgettable times!
         </p>
         <div
