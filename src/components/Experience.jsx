@@ -12,15 +12,15 @@ export const Experience = () => {
 
   return (
     <>
-      <Float
+      {/* <Float
         enabled={bookClosed && !floatPaused}
         rotation-x={-Math.PI / 4}
         floatIntensity={1}
         speed={2}
         rotationIntensity={2}
-      >
-        <Book  />
-      </Float>
+      > */}
+      <Book  />
+      {/* </Float> */}
       <OrbitControls minDistance={2} maxDistance={5} />
       <Environment preset="city" intensity={0.45} />
       <directionalLight

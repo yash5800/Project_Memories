@@ -6,7 +6,7 @@ import BookPage from './pages/book'
 import MusicProvider from './components/MusicProvider'
 
 const Loading = () => (
-  <div className="min-h-screen bg-gray-950 flex items-center justify-center">
+  <div className="min-h-screen bg-gray-950 dark:bg-gray-950 flex items-center justify-center">
     <div className="text-white text-xl">Loading...</div>
   </div>
 )

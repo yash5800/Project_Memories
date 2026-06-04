@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTheme } from '../context/ThemeContext'
 
 const milestones = [
-  { year: '2022', label: 'First Step', color: '#ff6b6b', icon: '👣', desc: 'The journey began with 60 curious minds stepping into college.' },
+  { year: '2022', label: 'First Step', color: '#ff6b6b', icon: '👣', desc: '72 curious minds stepped into college. The journey began.' },
   { year: '2023', label: 'Growing Strong', color: '#ffd43b', icon: '🌱', desc: 'Late-night study sessions, first hackathons, friendships that clicked.' },
   { year: '2024', label: 'Building Dreams', color: '#69db7c', icon: '⚡', desc: 'Projects came alive. Ideas turned into code. We found our rhythm.' },
   { year: '2025', label: 'Almost There', color: '#4dabf7', icon: '🚀', desc: 'Internships, placements, and the final sprint toward graduation.' },
@@ -18,125 +18,133 @@ const Branch = () => {
   return (
     <section
       id="branch"
-      className={`relative min-h-screen py-20 px-6 overflow-hidden ${
-        isDark ? 'bg-[#0f0f1a]' : 'bg-gray-100'
+      className={`relative py-20 px-6 overflow-hidden ${
+        isDark ? 'bg-[#0f0f1a]' : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
       }`}
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-10 left-[8%] w-3 h-3 rounded-full bg-[#ff6b6b]/30 animate-sparkle" />
-        <div className="absolute bottom-20 right-[12%] w-4 h-4 rounded-full bg-[#4dabf7]/30 animate-sparkle" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/3 right-[10%] w-2 h-2 rounded-full bg-[#69db7c]/30 animate-sparkle" style={{ animationDelay: '0.5s' }} />
+        {[...Array(6)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full blur-sm"
+            style={{
+              width: `${8 + i * 4}px`,
+              height: `${8 + i * 4}px`,
+              backgroundColor: milestones[i % 5].color,
+              opacity: isDark ? 0.2 : 0.12,
+              top: `${10 + i * 15}%`,
+              left: i % 2 === 0 ? `${5 + i * 3}%` : `${80 - i * 3}%`,
+              animation: `float-around ${6 + i * 2}s ease-in-out infinite`,
+              animationDelay: `${i * 0.8}s`,
+            }}
+          />
+        ))}
+        <div className={`absolute top-1/4 left-[10%] w-2 h-2 rounded-full animate-sparkle ${isDark ? 'bg-white/10' : 'bg-gray-400'}`} />
+        <div className={`absolute top-3/4 right-[15%] w-3 h-3 rounded-full animate-sparkle ${isDark ? 'bg-white/10' : 'bg-gray-400'}`} style={{ animationDelay: '1.5s' }} />
+        <div className={`absolute top-1/2 left-[90%] w-2 h-2 rounded-full animate-sparkle ${isDark ? 'bg-white/10' : 'bg-gray-400'}`} style={{ animationDelay: '3s' }} />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto">
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="text-rainbow">Our Journey</span>
-          </h2>
-          <p className={`max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-            A four-year adventure packed with growth, code, and camaraderie
+      <div className='flex justify-center items-center flex-col lg:flex-row gap-12 lg:gap-24 relative z-10'>
+        <div className='flex justify-center items-start flex-col max-w-lg gap-6'>
+          <h1 className='text-4xl sm:text-5xl font-extrabold leading-tight'>
+            <span className="text-rainbow">Our</span>{' '}
+            <span className={isDark ? 'text-white' : 'text-gray-800'}>Memories</span>
+          </h1>
+          <p className={`text-start text-lg leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+            From the first day to the last, our journey has been filled with unforgettable moments. Each year brought new challenges, growth, and memories that we will cherish forever.
           </p>
+
+          <Link
+            to="/book"
+            className={`group relative inline-flex items-center gap-2 px-6 py-3 bg-rainbow rounded-full text-white font-semibold overflow-hidden transition-transform duration-300 hover:scale-105 shadow-lg ${
+              isDark ? 'shadow-violet-500/30' : 'shadow-violet-400/40'
+            }`}
+          >
+            <span className="relative z-10">Flip Through the Book</span>
+            <svg className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+            <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </Link>
         </div>
 
-        <div className="relative">
-          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 hidden md:block pointer-events-none opacity-50"
-            style={{ background: 'linear-gradient(to bottom, #ff6b6b, #ffd43b, #69db7c, #4dabf7, #9775fa)' }}
+        <div className='relative group'>
+          <div className={`absolute -inset-4 rounded-3xl opacity-30 blur-xl transition-all duration-500 group-hover:opacity-60 group-hover:blur-2xl`}
+            style={{
+              background: 'linear-gradient(135deg, #ff6b6b, #ffd43b, #69db7c, #4dabf7, #9775fa)',
+              backgroundSize: '200% 200%',
+              animation: 'rainbow 4s ease infinite',
+            }}
           />
-          <div className="absolute left-[19px] top-0 bottom-0 w-0.5 md:hidden pointer-events-none opacity-40"
-            style={{ background: 'linear-gradient(to bottom, #ff6b6b, #ffd43b, #69db7c, #4dabf7, #9775fa)' }}
-          />
-          {milestones.map((m, i) => {
-            const isLeft = i % 2 === 0
-            const ShapeComponent = shapeMap[shapes[i % shapes.length]]
+          <div className='relative w-[320px] sm:w-[350px] p-2 rounded-3xl overflow-hidden backdrop-blur-sm'
+            style={{
+              background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.8)',
+              border: `1px solid ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.06)'}`,
+              boxShadow: isDark ? 'none' : '0 8px 32px rgba(0,0,0,0.06)',
+            }}
+          >
+            <img
+              src="textures/book-cover.png"
+              alt="Branch"
+              className="object-contain rounded-3xl transition-transform duration-500 group-hover:scale-[1.02]"
+            />
+          </div>
+          <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+            {milestones.map((m, i) => (
+              <div key={i} className="w-2 h-2 rounded-full animate-pulse-glow" style={{ backgroundColor: m.color, animationDelay: `${i * 0.3}s` }} />
+            ))}
+          </div>
+        </div>
+      </div>
 
+      <div className="relative mt-24 max-w-5xl mx-auto">
+        <div className={`absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 ${isDark ? 'bg-white/10' : 'bg-gradient-to-b from-[#ff6b6b]/30 via-[#69db7c]/30 to-[#9775fa]/30'}`} />
+
+        <div className="space-y-16">
+          {milestones.map((m, i) => {
+            const ShapeComp = shapeMap[shapes[i]]
+            const isLeft = i % 2 === 0
             return (
               <div
-                key={m.year}
-                className={`relative flex items-center mb-16 md:mb-24 ${
-                  isLeft ? 'md:flex-row' : 'md:flex-row-reverse'
-                } flex-row`}
+                key={i}
+                className="group relative flex items-center gap-6 sm:gap-12"
+                style={{ flexDirection: isLeft ? 'row' : 'row-reverse' }}
               >
-                <div className={`flex-1 ${isLeft ? 'md:text-right md:pr-12' : 'md:text-left md:pl-12'} hidden md:block`}>
-                  <div
-                    className={`inline-block p-5 rounded-2xl backdrop-blur-sm border transition-all duration-300 hover:scale-105 hover:shadow-xl ${
-                      isDark
-                        ? 'bg-white/5 border-white/10 hover:bg-white/10'
-                        : 'bg-white/80 border-gray-200 hover:bg-white'
-                    }`}
-                    style={{ borderLeftColor: isLeft ? m.color : undefined, borderRightColor: !isLeft ? m.color : undefined }}
+                <div className={`flex-1 ${isLeft ? 'text-right' : 'text-left'}`}>
+                  <div className={`inline-block p-5 rounded-2xl backdrop-blur-sm transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 cursor-default ${
+                    isDark
+                      ? 'bg-white/5 hover:bg-white/[0.07]'
+                      : 'bg-white/70 hover:bg-white/90 border border-black/5'
+                  }`}
+                    style={{
+                      boxShadow: isDark
+                        ? `0 0 30px ${m.color}15`
+                        : `0 4px 20px ${m.color}20, 0 0 30px ${m.color}10`,
+                    }}
                   >
-                    <span className="text-2xl mb-2 block">{m.icon}</span>
-                    <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                      {m.desc}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex-shrink-0 relative z-10 flex flex-col items-center">
-                  <div
-                    className="group cursor-pointer transition-transform duration-300 hover:scale-125"
-                  >
-                    <ShapeComponent color={m.color} />
-                  </div>
-                  <span
-                    className="mt-2 text-xs font-bold whitespace-nowrap md:hidden"
-                    style={{ color: m.color }}
-                  >
-                    {m.year}
-                  </span>
-                </div>
-
-                <div className={`flex-1 ${isLeft ? 'md:text-left md:pl-12' : 'md:text-right md:pr-12'} hidden md:block`}>
-                  <div className="flex flex-col items-start">
-                    <span
-                      className="text-sm font-bold tracking-wide"
-                      style={{ color: m.color }}
-                    >
-                      {m.year}
-                    </span>
-                    <h3 className={`text-lg font-bold mt-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                    <span className="text-sm font-bold tracking-widest uppercase" style={{ color: m.color }}>{m.year}</span>
+                    <h3 className={`text-xl font-bold mt-1 ${isDark ? 'text-white' : 'text-gray-800'}`}>
                       {m.icon} {m.label}
                     </h3>
+                    <p className={`text-sm mt-2 leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{m.desc}</p>
                   </div>
                 </div>
 
-                <div className={`md:hidden ml-6 flex-1 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-lg">{m.icon}</span>
-                    <span className="text-sm font-bold" style={{ color: m.color }}>{m.year}</span>
+                <div className="relative flex-shrink-0 z-10">
+                  <div className="relative transition-transform duration-300 group-hover:scale-125">
+                    <ShapeComp color={m.color} />
                   </div>
-                  <h3 className={`text-base font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>{m.label}</h3>
-                  <p className="text-sm mt-1 leading-relaxed">{m.desc}</p>
+                  <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-md`}
+                    style={{ backgroundColor: m.color }}
+                  />
+                </div>
+
+                <div className={`flex-1 ${isLeft ? 'text-left' : 'text-right'}`}>
+                  <div className={`h-0 border-t ${isDark ? 'border-white/5' : 'border-transparent'}`} />
                 </div>
               </div>
             )
           })}
-        </div>
-
-        <div className="relative mt-8 md:mt-4 flex justify-center">
-          <Link to="/book" className="block group">
-            <div className="relative w-full max-w-xs animate-float">
-              <div className="absolute -top-4 -left-4 text-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ transform: 'rotate(-15deg)' }}>🗺️</div>
-              <div className="absolute -bottom-3 -right-3 w-10 h-10 rounded-full bg-rainbow flex items-center justify-center text-white text-sm font-bold shadow-lg shadow-purple-500/30 animate-pulse-glow">
-                ✦
-              </div>
-              <div className={`relative overflow-hidden rounded-[2rem] border-2 transition-all duration-300 group-hover:shadow-2xl group-hover:-translate-y-1 ${
-                isDark
-                  ? 'border-white/10 bg-white/5 group-hover:shadow-[#9775fa]/30'
-                  : 'border-black/10 bg-white/70 group-hover:shadow-[#9775fa]/20'
-              } shadow-xl shadow-black/20`}>
-                <div
-                  className="aspect-[4/5] bg-cover bg-center"
-                  style={{ backgroundImage: `url(${import.meta.env.BASE_URL}textures/book-cover.png)` }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
-                  <p className="text-xs uppercase tracking-[0.3em] text-rainbow mb-2 font-semibold">The Destination</p>
-                  <p className="text-white text-lg font-bold">Memory Book</p>
-                  <p className="text-white/70 text-sm mt-1">Every chapter, every laugh, every memory — preserved.</p>
-                </div>
-              </div>
-            </div>
-          </Link>
         </div>
       </div>
     </section>
