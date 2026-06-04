@@ -11,7 +11,7 @@ const HomePage = () => {
 
   return (
     <>
-      <main className="min-h-screen bg-gray-950">
+      <main className="min-h-screen">
         <NavBar />  
         <StartGroup />
         <Branch />

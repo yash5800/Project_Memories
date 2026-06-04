@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef } from 'react'
-import { useTheme } from '../context/ThemeContext'
 import {
   useMusicStore,
   audioRef,
@@ -36,8 +35,6 @@ const buildWavePath = (amplitude, phase, waveformArray) => {
 }
 
 const Music = () => {
-  const { isDark } = useTheme()
-  const themeRef = useRef(isDark)
   const isPlaying = useMusicStore((s) => s.isPlaying)
   const animationFrameRef = useRef(null)
   const wavePathRef = useRef(null)
@@ -49,40 +46,33 @@ const Music = () => {
 
   const rainbowColors = ['#ff6b6b', '#ffa94d', '#ffd43b', '#69db7c', '#4dabf7', '#9775fa', '#f06595']
 
-  useEffect(() => {
-    themeRef.current = isDark
-  }, [isDark])
-
   const applyStyles = useCallback((mode, level) => {
     const wavePath = wavePathRef.current
     const glowPath = glowPathRef.current
     if (!wavePath || !glowPath) return
 
-    const isDarkTheme = themeRef.current
-    const baseStroke = isPlaying ? rainbowColors[Math.floor(playingIndexRef.current) % rainbowColors.length] : (isDarkTheme ? '#f8fafc' : '#0f172a')
-    const glowStroke = isPlaying ? baseStroke.replace(')', ',0.56)').replace('rgb', 'rgba') : (isDarkTheme ? 'rgba(255,255,255,0.56)' : 'rgba(15,23,42,0.42)')
-    const dashArray = mode === 'music' ? '1.2 2.6' : '1.8 3.2'
-    const opacity = mode === 'music'
-      ? (isDarkTheme ? 0.7 : 0.86) + level * (isDarkTheme ? 0.2 : 0.14)
-      : (isDarkTheme ? 0.62 : 0.8) + level * 0.08
+    const isMusicActive = mode === 'music'
+    const opacity = isMusicActive
+      ? Math.min(0.92, 0.7 + level * 0.2)
+      : Math.min(0.82, 0.62 + level * 0.08)
+    const dashArray = isMusicActive ? `${Math.max(1.6, 0.6 + level * 3)} ${Math.max(1.2, 0.4 + level * 1.4)}` : '2.2 3.2'
+
+    const baseStroke = isPlaying ? rainbowColors[Math.floor(playingIndexRef.current) % rainbowColors.length] : '#f8fafc'
+    const glowStroke = isPlaying ? baseStroke.replace(')', ',0.56)').replace('rgb', 'rgba') : 'rgba(255,255,255,0.56)'
 
     wavePath.style.stroke = baseStroke
     wavePath.style.strokeDasharray = dashArray
     wavePath.style.opacity = Math.max(0.48, opacity).toFixed(3)
     wavePath.style.filter = isPlaying
       ? 'drop-shadow(0 0 4px rgba(255,107,107,0.6)) drop-shadow(0 0 10px rgba(151,117,250,0.4))'
-      : isDarkTheme
-        ? 'drop-shadow(0 0 2px rgba(255,255,255,0.45)) drop-shadow(0 0 7px rgba(255,255,255,0.2))'
-        : 'drop-shadow(0 0 2px rgba(15,23,42,0.34)) drop-shadow(0 0 7px rgba(15,23,42,0.16))'
+      : 'drop-shadow(0 0 2px rgba(255,255,255,0.45)) drop-shadow(0 0 7px rgba(255,255,255,0.2))'
 
     glowPath.style.stroke = glowStroke
     glowPath.style.strokeDasharray = dashArray
     glowPath.style.opacity = Math.max(0.12, opacity * 0.28).toFixed(3)
     glowPath.style.filter = isPlaying
       ? 'blur(1.6px) drop-shadow(0 0 8px rgba(255,107,107,0.3))'
-      : isDarkTheme
-        ? 'blur(1.6px) drop-shadow(0 0 6px rgba(255,255,255,0.22))'
-        : 'blur(1.4px) drop-shadow(0 0 6px rgba(15,23,42,0.18))'
+      : 'blur(1.6px) drop-shadow(0 0 6px rgba(255,255,255,0.22))'
   }, [isPlaying])
 
   const renderWave = useCallback((mode) => {
@@ -203,7 +193,7 @@ const Music = () => {
 
   useEffect(() => {
     renderWave(modeRef.current)
-  }, [isDark, renderWave])
+  }, [renderWave])
 
   useEffect(() => {
     const onVisibilityChange = () => {
@@ -259,8 +249,8 @@ const Music = () => {
           isPlaying ? 'animate-pulse-glow border-[#9775fa]' : ''
         }`}
         style={{
-          backgroundColor: isDark ? '#000000' : '#e2e8f0',
-          borderColor: isPlaying ? '#9775fa' : isDark ? '#6b7280' : '#94a3b8'
+          backgroundColor: '#000000',
+          borderColor: isPlaying ? '#9775fa' : '#6b7280'
         }}
         aria-label={isPlaying ? 'Pause music' : 'Play music'}
         title={isPlaying ? 'Pause music' : 'Play music'}
@@ -275,14 +265,12 @@ const Music = () => {
             ref={glowPathRef}
             d='M0 10 L28 10'
             fill='none'
-            stroke={isDark ? '#f8fafc' : '#0f172a'}
+            stroke='#f8fafc'
             strokeWidth='5.2'
             strokeLinecap='round'
             strokeLinejoin='round'
             style={{
-              filter: isDark
-                ? 'blur(1.6px) drop-shadow(0 0 7px rgba(255,255,255,0.22))'
-                : 'blur(1.4px) drop-shadow(0 0 7px rgba(15,23,42,0.18))',
+              filter: 'blur(1.6px) drop-shadow(0 0 7px rgba(255,255,255,0.22))',
               opacity: 0.18
             }}
           />
@@ -290,15 +278,13 @@ const Music = () => {
             ref={wavePathRef}
             d='M0 10 L28 10'
             fill='none'
-            stroke={isDark ? '#f8fafc' : '#0f172a'}
+            stroke='#f8fafc'
             strokeWidth='2.1'
             strokeLinecap='round'
             strokeLinejoin='round'
             style={{
-              filter: isDark
-                ? 'drop-shadow(0 0 2px rgba(255,255,255,0.42)) drop-shadow(0 0 7px rgba(255,255,255,0.18))'
-                : 'drop-shadow(0 0 2px rgba(15,23,42,0.34)) drop-shadow(0 0 7px rgba(15,23,42,0.16))',
-              opacity: isDark ? 0.65 : 0.82,
+              filter: 'drop-shadow(0 0 2px rgba(255,255,255,0.42)) drop-shadow(0 0 7px rgba(255,255,255,0.18))',
+              opacity: 0.65,
               strokeDasharray: '1.8 2.8'
             }}
           />

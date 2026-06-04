@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTheme } from '../context/ThemeContext'
 import Music from './Music'
 
@@ -9,6 +9,7 @@ const NavBar = () => {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +28,7 @@ const NavBar = () => {
   const navLinks = [
     { name: 'Home', href: '#home' },
     { name: 'Journey', href: '#branch' },
+    { name: 'Games', to: '/games' },
     { name: 'Memories', to: '/book' },
     { name: 'Classmates', href: '#profiles' },
     { name: 'Projects', href: '#projects' },
@@ -38,6 +40,10 @@ const NavBar = () => {
       return
     }
     event.preventDefault()
+    if (location.pathname !== '/') {
+      navigate('/' + href)
+      return
+    }
     const element = document.querySelector(href)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' })

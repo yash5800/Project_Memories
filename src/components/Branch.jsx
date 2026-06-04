@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../context/ThemeContext'
 
+const baseUrl = import.meta.env.BASE_URL || '/'
+
 const milestones = [
   { year: '2022', label: 'First Step', color: '#ff6b6b', icon: '👣', desc: '72 curious minds stepped into college. The journey began.' },
   { year: '2023', label: 'Growing Strong', color: '#ffd43b', icon: '🌱', desc: 'Late-night study sessions, first hackathons, friendships that clicked.' },
@@ -76,6 +78,8 @@ const Branch = () => {
               animation: 'rainbow 4s ease infinite',
             }}
           />
+
+          <Link to="/book">
           <div className='relative w-[320px] sm:w-[350px] p-2 rounded-3xl overflow-hidden backdrop-blur-sm'
             style={{
               background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.8)',
@@ -84,11 +88,13 @@ const Branch = () => {
             }}
           >
             <img
-              src="textures/book-cover.png"
+              src={`${baseUrl}textures/book-cover.png`}
               alt="Branch"
               className="object-contain rounded-3xl transition-transform duration-500 group-hover:scale-[1.02]"
             />
           </div>
+          </Link>
+
           <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
             {milestones.map((m, i) => (
               <div key={i} className="w-2 h-2 rounded-full animate-pulse-glow" style={{ backgroundColor: m.color, animationDelay: `${i * 0.3}s` }} />

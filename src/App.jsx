@@ -3,6 +3,7 @@ import { ThemeProvider } from './context/ThemeContext'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import HomePage from './pages/home'
 import BookPage from './pages/book'
+import GamesPage from './pages/games'
 import MusicProvider from './components/MusicProvider'
 
 const Loading = () => (
@@ -22,6 +23,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/book" element={<BookPage />} />
+            <Route path="/games" element={<GamesPage />} />
           </Routes>
         </BrowserRouter>
       </Suspense>

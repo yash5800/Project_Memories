@@ -43,7 +43,12 @@ const BookPage = () => {
     <>
       <LoadingScreen />
       <UI />
-      <Canvas shadows camera={{ position: [0, 1.1, 2.15], fov: 38 }}>
+      <Canvas
+        shadows
+        camera={{ position: [0, 1.1, 2.15], fov: 38 }}
+        style={{ background: '#0f0f1a', width: '100vw', height: '100vh' }}
+        flat
+      >
         <group position-y={0}>
           <Suspense fallback={null}>
             <Experience />
