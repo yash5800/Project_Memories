@@ -27,11 +27,18 @@ const Profiles = () => {
   }
 
   useEffect(() => {
+    let cancelled = false
     const baseUrl = import.meta.env.BASE_URL || '/'
-    fetch(`${baseUrl}profilesDetails.json`)
-      .then(res => res.json())
-      .then(data => setProfileDetails(data))
+    fetch(`${baseUrl}profilesDetails.json?t=${Date.now()}`)
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        return res.json()
+      })
+      .then(data => {
+        if (!cancelled) setProfileDetails(data)
+      })
       .catch(err => console.error('Error loading profiles:', err))
+    return () => { cancelled = true }
   }, [])
 
   const filteredProfiles = profileDetails.filter(student =>
@@ -140,7 +147,8 @@ const Profiles = () => {
 const ProfileCard = ({ student, onView, isDark, borderColor, index }) => {
   const { name, rollno, insta, linkedin, profileUrl, github } = student
   const hasPhoto = profileUrl && profileUrl.trim() !== ''
-  const imgSrc = hasPhoto ? `classmeats/${profileUrl}` : null
+  const baseUrl = import.meta.env.BASE_URL || '/'
+  const imgSrc = hasPhoto ? `${baseUrl}classmeats/${profileUrl}` : null
 
   function capitalizeNames(str) {
     const words = str.split(' ')

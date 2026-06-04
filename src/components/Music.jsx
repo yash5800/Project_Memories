@@ -147,9 +147,17 @@ const Music = () => {
     applyStyles(mode, level)
   }, [applyStyles, isPlaying])
 
+  const suspendCheckRef = useRef(0)
   useEffect(() => {
     const tick = () => {
       renderWave(modeRef.current)
+      suspendCheckRef.current++
+      if (suspendCheckRef.current % 10 === 0) {
+        const ctx = audioContextRef.current
+        if (ctx && ctx.state === 'suspended') {
+          ctx.resume()
+        }
+      }
       animationFrameRef.current = requestAnimationFrame(tick)
     }
     animationFrameRef.current = requestAnimationFrame(tick)
@@ -217,6 +225,10 @@ const Music = () => {
     if (!audio.paused && audio.muted) {
       audio.muted = false
       await setupAudioAnalyser()
+      const ctx = audioContextRef.current
+      if (ctx && ctx.state === 'suspended') {
+        await ctx.resume()
+      }
       return
     }
 

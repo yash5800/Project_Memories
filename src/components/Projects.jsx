@@ -23,15 +23,23 @@ const Projects = () => {
   const baseUrl = import.meta.env.BASE_URL || '/'
 
   useEffect(() => {
-    fetch(`${baseUrl}projects.json`)
-      .then(res => res.json())
-      .then(data => setProjects(data))
+    let cancelled = false
+    const fetchJson = (url) =>
+      fetch(`${url}?t=${Date.now()}`)
+        .then(res => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`)
+          return res.json()
+        })
+
+    fetchJson(`${baseUrl}projects.json`)
+      .then(data => { if (!cancelled) setProjects(data) })
       .catch(err => console.error('Error loading projects:', err))
 
-    fetch(`${baseUrl}profilesDetails.json`)
-      .then(res => res.json())
-      .then(data => setProfiles(data))
+    fetchJson(`${baseUrl}profilesDetails.json`)
+      .then(data => { if (!cancelled) setProfiles(data) })
       .catch(err => console.error('Error loading profiles:', err))
+
+    return () => { cancelled = true }
   }, [baseUrl])
 
   useEffect(() => {
