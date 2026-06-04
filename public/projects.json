@@ -1,29 +1,200 @@
 [
 {
-    "title" : "SafeRaho",
-    "description": "It's a web application that stores the private documents of the user in a secure manner.",
-    "github" : "https:/www.github.com/Bskn1412",
+    "title" : "DIEC-ViT-Driven Tobacco Leaf Disease Diagnosis and Product Retrieval Using AI",
+    "banner": "1.png",
+    "description": "Tobacco crops are highly affected by leaf diseases that reduce yield and quality. Traditional manual detection is slow, error-prone, and requires expertise. To overcome these issues, this work presents an AI-based approach using DIEC-ViT for accurate and efficient tobacco leaf disease detection. The system is further integrated with a FAISS-based vector search, enabling not only disease diagnosis but also retrieval of suitable products and actionable recommendations. This comprehensive tool aids farmers through early disease detection and timely suggestions, improving crop management and overall productivity.",
     "team": [
+        "22481A0523",
         "22481A0510",
-        "22481A0518"
+        "22481A0541",
+        "22481A0565"
     ]
 },
 {
-    "title": "Deciese finding",
-    "description": "Passionate about user-centric design and intuitive interfaces. Delivered 20+ successful projects for startups.",
-    "github": "https:/www.github.com/yash5800",
+    "title": "Hybrid Quantum Framework for Efficient Drug Detection",
+    "banner": "2.png",
+    "description": "Detecting drugs in blood is crucial for both clinical and forensic applications. However, existing methods are often slow, expensive, and require relatively large sample volumes. Identifying small-molecule drugs at low concentrations presents an even greater challenge. To address these issues, we are developing a hybrid quantum–classical machine learning system. This model is designed to identify which drug is present in a given blood sample and estimate its concentration accurately, even from very small quantities.",
     "team": [
-        "22481A0510",
-        "22481A0518"
+        "22481A0563",
+        "22481A0543",
+        "22481A0507",
+        "22481A0561"
     ]
 },
 {
-    "title": "Like me",
-    "description": "Passionate about user-centric design and intuitive interfaces. Delivered 20+ successful projects for startups.",
-    "github" : "https:/www.github.com/",
+    "title": "Hybrid Classical Quantum Machine Learning for Lung Disease Detection and Pneumonia Severity Classification",
+    "banner": "3.png",
+    "description": "This project presents a Hybrid Classical Quantum Machine Learning model for detecting lung diseases using chest X-ray images. The system works in two stages: first, it classifies diseases such as pneumonia, tuberculosis, and COVID-19, and then it determines pneumonia severity as mild, moderate, or severe. By combining deep learning with quantum techniques, the model improves accuracy and efficiency. It achieves about 95% accuracy in disease detection and 93.8% in severity classification.",
     "team": [
-        "22481A0510",
-        "22481A0518"
+        "22481A0535",
+        "22481A0553",
+        "22481A0558",
+        "22481A0560"
+    ]
+},
+{
+    "title":"Alzheimer’s Diagnosis Using CNN on Hippocampal MRI slices ",
+    "banner":"4.png",
+    "description":"Alzheimer’s Disease (AD) is a progressive neurological disorder that demands early and accurate diagnosis. Traditional deep learning methods often use entire MRI scans, leading to irrelevant features and reduced accuracy. This project focuses on the hippocampus, the key brain region affected in AD, by analyzing select MRI slices. Convolutional Neural Networks (CNNs) such as Pre-trained ResNet50, and LeNet are trained on the ADNI dataset to improve diagnostic precision by targeting the most relevant brain region . The project compares the accuracy of different views (axial, coronal, and sagittal) of MRI images for AD classification and evaluates the performance of Resnet50 and LeNet models.",
+    "team":[
+        "22481A0534",
+        "22481A0531",
+        "22481A0562",
+        "22481A0559"
+    ]
+},
+{
+    "title":"SafeRaho: A Secure and Encrypted File Storage Platform",
+    "banner":"5.png",
+    "description":"SafeRaho is a cutting-edge, privacy-first file storage platform engineered to safeguard sensitive documents with uncompromising security. Unlike traditional cloud storage systems that rely on provider-controlled encryption, SafeRaho implements a zero-knowledge architecture, ensuring that only the user can access their data. Files are encrypted locally in the browser using XSalsa20-Poly1305 (via crypto_secretbox_easy from libsodium) with unique per-file keys, which are themselves encrypted using a master key derived from the user's password through Argon2id, a memory-hard key derivation function. The master key is further protected with XChaCha20-Poly1305 encryption, stored server-side in a MongoDB collection, and never exposed in plaintext. File uploads and downloads are seamlessly managed with Express, Multer, and MongoDB GridFS, providing efficient handling of large files while maintaining end-to-end encryption. Decryption is strictly client-side, requiring user-specific credentials, making SafeRaho impervious to server-side breaches or insider threats. Users can recover access via a secure mnemonic phrase, protected by 2FA, ensuring resilience without compromising security. SafeRaho as a leading solution for privacy-conscious, admin-proof cloud storage",
+    "team":[
+        "23485A0504",
+        "22481A0518",
+        "22481A0566",
+        "22481A0552"
+    ]
+},
+{
+    "title":"Hybrid Quantum-Enhanced Deep Learning for Diabetic Retinopathy Detection",
+    "banner":"6.png",
+    "description":"Diabetic retinopathy (DR) is a vision-threatening complication of diabetes that progressively damages the retinal vasculature and may lead to irreversible blindness if not detected early. Traditional manual assessment of retinal fundus images is time-consuming, requires specialized expertise, and poses challenges for large-scale screening programs. Although deep learning–based methods have demonstrated significant success in automated DR detection, their reliance on large annotated datasets and high computational demands limits real-world deployment, particularly in resource-constrained settings.",
+    "team":[
+        "22481A0514",
+        "23485A0503",
+        "22481A0551",
+        "22481A0537"
+    ]
+},
+{
+    "title":"A SHAP-Powered Ensemble Framework for Ovarian Cancer Stage Classification and Personalized Treatment Planning",
+    "banner":"7.png",
+    "description":"Ovarian cancer is a life-threatening disease that is often diagnosed at advanced stages due to the absence of clear early symptoms and reliable screening methods. Delayed detection significantly reduces survival rates and complicates treatment decisions. To overcome these challenges, this project presents a SHAP-powered ensemble machine learning framework for accurate ovarian cancer detection and stage classification. ",
+    "team":[
+        "22481A0517",
+        "22481A0522",
+        "22481A0550",
+        "22481A0528"
+    ]
+},
+{
+    "title":"COMMUNITY-BASED SOS APPLICATION FOR REAL-TIME EMERGENCY ASSISTANCE",
+    "banner":"8.png",
+    "description":"This study presents a button-based SOS app designed to enhance personal safety through fast, reliable emergency response. With one-tap activation, users can instantly trigger alerts in critical situations. The app features live location sharing and real-time audio/video streaming, helping responders and nearby community members assess and act quickly. It supports both registered and non-registered users, ensuring help is always accessible. A community-driven alert system further boosts response speed by notifying trusted individuals nearby. Combining simplicity, accessibility, and real-time communication, this app offers a practical and scalable safety solution.",
+    "team":[
+        "22481A0525",
+        "22481A0539",
+        "22481A0526",
+        "22481A0527"
+    ]
+},
+{
+    "title":"Multimodal Phishing Detection Using SLMs & Explainable AI",
+    "banner":"9.png",
+    "description":"Our project focuses on detecting phishing in a simple and efficient way. By combining multiple data sources, the system becomes more reliable. It also uses Explainable AI to show the reason behind predictions. This makes it practical and user-friendly.",
+    "team":[
+        "22481A0533",
+        "22481A0515",
+        "22481A0554",
+        "22481A0524"
+    ]
+},
+{
+    "title":"AeroScribe: A Real-Time Vision-Based Framework for Air-Writing Recognition Using Hybrid Deep Learning",
+    "banner":"10.png",
+    "description":"AeroScribe demonstrates that gesture-based air writing can be made accurate and usable by combining robust hand tracking with a category-aware deep learning pipeline. MediaPipe supplies precise, real-time landmark data, while the dual-branch MobileNetV2 classifier (with a 5× cross-category penalty) distinguishes among 81 classes—numbers, uppercase letters, lowercase letters, and symbols—without confusing visually similar characters. The system runs at offers multimodal feedback , and includes user-friendly controls for mode switching, positioning, and text editing, making it suitable for touchless input in assistive, medical, and smart-environment scenarios.",
+    "team":[
+        "22481A0542",
+        "22481A0557",
+        "22481A0548",
+        "22481A0512"
+    ]
+},
+{
+    "title":"MRI based Brain Tumor Detection Using Hybrid Quantum And Classical Neural Networks",
+    "banner":"11.png",
+    "description":"Brain Tumors are life-threatening and require early, accurate detection for effective treatment. Deep learning has shown promise in analyzing MRI scans for Tumor classification. This project introduces A hybrid quantum classical neural network (HQCNN) combining classical deep learning with quantum computing. MRI images are enhanced using CLAHE, and features are extracted using resnet18. These are then passed through quantum circuits built with Pennylane and Qiskit for better pattern recognition. The model is trained with pytorch using hybrid backpropagation, and the system demonstrates the potential of quantum-assisted models for scalable and intelligent brain tumor detection",
+    "team":[
+        "22481A0546",
+        "23485A0502",
+        "22481A0545",
+        "22481A0511"
+    ]
+},
+{
+    "title":"Synapse Care: AI-Powered Health Companion Using Deep Learning and Multimodal Sensing",
+    "banner":"12.png",
+    "description":"Synapse Care is a comprehensive health and fitness platform that integrates workout planning, nutrition management, and physiotherapy support into a single system. The application allows users to track their fitness activities, manage diet plans, and receive guidance for injury prevention and recovery. It provides structured modules for authentication, fitness tracking, and report generation, ensuring a personalized and user-friendly experience. The system aims to simplify health management by offering all essential services in one platform.",
+    "team":[
+        "22481A0549",
+        "22481A0564",
+        "22481A0547",
+        "22481A0530"
+    ]
+},
+{
+    "title":"Domain-Adaptive Fine-Tuning of Medical LLMs for Personalized Blood Test Report Interpretation",
+    "banner":"13.png",
+    "description":"This project introduces an AI-powered web application for automated interpretation of medical blood test reports. Users can upload their blood test PDFs, receive clear, personalized explanations, and interact with a chat bot for further clarification. The system leverages OCR, a fine-tuned TinyLLaMA model, and a custom medical dataset to provide accessible, domain-specific health insights.",
+    "team":[
+        "22481A0555",
+        "22481A0538",
+        "22481A0501",
+        "22481A0505"
+    ]
+},
+{
+    "title":"Vision –Based Real-Time Driver Drowsiness , Crash Detection and Alert System",
+    "banner":"14.png",
+    "description":"This project develops a real-time driver drowsiness and accident detection system using computer vision and IoT sensors. The camera monitors eye blink rate and yawning frequency to detect fatigue, triggering an alert when drowsiness occurs. An accelerometer identifies accidents through sudden motion and sends GPS-based emergency alerts automatically. The system ensures early detection, timely warnings, and enhanced road safety for drivers.",
+    "team":[
+        "22481A0556",
+        "22481A0529",
+        "23485A0501",
+        "22481A0506"
+    ]
+},
+{
+    "title":"DEEP LEARNING-BASED AUTOMATED CROP WEED DETECTION FOR PRECISION AGRICULTURE",
+    "banner":"15.png",
+    "description":"This study presents a deep learning–based Approach for automatic weed detection in crop fields to support precision agriculture. Convolutional neural networks such as ResNet, YOLO, and Efficient Net are used with image preprocessing to accurately distinguish weeds from crops under varying conditions. The model is evaluated using accuracy, precision, recall, F1 score, and map. By enabling targeted herbicide application, the proposed system reduces chemical usage, lowers costs, and promotes sustainable and efficient farming.",
+    "team":[
+        "23485A0502",
+        "22481A0508",
+        "22481A0503",
+        "22481A0540"
+    ]
+},
+{
+    "title":"Smart Crop Prediction using Soil Moisture by Machine Learning",
+    "banner":"16.png",
+    "description":"Accurate crop selection plays a vital role in improving agricultural productivity and ensuring sustainable resource utilization. Traditional farming methods often rely on experience rather than systematic analysis, leading to inefficient input usage and lower yields. In this work, crop prediction is modeled as a classification problem using soil nutrients and climatic parameters such as temperature, humidity, and rainfall. Multiple machine learning algorithms were evaluated, with XGBoost achieving the highest accuracy (approximately 99%) and strong generalization performance. To improve interpretability, SHAP analysis was used, revealing that humidity and rainfall have the greatest influence on crop prediction. The proposed system provides a reliable and interpretable decision-support tool, enabling data-driven crop planning and promoting sustainable agricultural practices.",
+    "team":[
+        "22481A0516",
+        "23485A0505",
+        "23485A0506",
+        "22481A0513"
+    ]
+},
+{
+    "title":"Smart Fertiliser Recommendation System ",
+    "banner":"17.png",
+    "description":"    The Smart Fertilizer Recommendation System is designed to develop an intelligent, data-driven solution that provides precise fertilizer recommendations tailored to individual farm conditions. The system analyzes  critical soil parameters including pH levels, NPK nutrient composition (Nitrogen, Phosphorus, Potassium), soil moisture, and real-time climate data to generate personalized recommendations.  The system aims to maximize crop yield while reducing fertilizer wastage by 30-40%, minimizing production costs, and decreasing environmental impact. It empowers farmers with actionable insights for sustainable farming practices and enhanced agricultural productivity. By combining soil science with advanced machine learning techniques, this system delivers optimized nutrient management accessible to all farmers, eliminating the need for expensive expert consultations and democratizing precision agriculture technology.",
+    "team":[
+        "22481A0521",
+        "22481A0509",
+        "22481A0532",
+        "22481A0519"
+    ]
+},
+{
+    "title":"Disease Diagnosis of Liver, Heart, and Brain Stroke Using ML & DL",
+    "banner":"18.png",
+    "description":"Heart disease, liver problems, and brain strokes are serious health issues that can be hard to detect early. Many people who receive unclear or doubtful test results are unsure about their condition and need a quick and reliable way to understand their health status. This project offers a smart, web-based system that helps users predict the risk of brain stroke using CNNs on MRI/CT scans, and heart or liver disease using machine learning on medical test results. The system has three sections--Heart, Liver, and Brain--where users can enter test data or upload images. It then gives an accurate prediction of the disease risk. This tool is especially useful for people who are unsure about their test results and want a second opinion. It provides fast, reliable, and accessible support for early diagnosis and better treatment decisions.",
+    "team":[
+        "22481A0504",
+        "22481A0544",
+        "22481A0536",
+        "22481A0520"
     ]
 }
 ]

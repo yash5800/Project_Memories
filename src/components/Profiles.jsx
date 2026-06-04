@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useTheme } from '../context/ThemeContext'
 
+const borderColors = [
+  'border-[#ff6b6b]', 'border-[#ffa94d]', 'border-[#ffd43b]',
+  'border-[#69db7c]', 'border-[#4dabf7]', 'border-[#9775fa]', 'border-[#f06595]',
+]
+
 const Profiles = () => {
   const [profileDetails, setProfileDetails] = useState([])
   const [selectedImg, setSelectedImg] = useState(null)
@@ -38,27 +43,25 @@ const Profiles = () => {
     <section
       id="profiles"
       className={`relative min-h-screen py-20 px-6 ${
-        isDark ? 'bg-gray-950' : 'bg-gray-100'
+        isDark ? 'bg-[#0f0f1a]' : 'bg-gray-100'
       }`}
     >
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-violet-500/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-pink-500/10 rounded-full blur-[100px]" />
+        <div className="absolute top-1/4 left-0 w-72 h-72 bg-[#9775fa]/10 rounded-full blur-[100px]" />
+        <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-[#f06595]/10 rounded-full blur-[100px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              Our Classmates
-            </span>
+            <span className="text-rainbow">Our Classmates</span>
           </h2>
           <p className={`mb-8 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-            {profileDetails.length} students • {profileDetails.filter(p => p.profileUrl).length} with photos
+            {profileDetails.length} students
           </p>
 
           <div className="max-w-md mx-auto">
-            <div className={`relative rounded-full ${isDark ? 'bg-gray-800' : 'bg-white'} shadow-lg`}>
+            <div className={`relative rounded-full ${isDark ? 'bg-gray-800' : 'bg-white'} shadow-lg focus-within:ring-2 focus-within:ring-[#9775fa] transition-all duration-300`}>
               <svg
                 className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
                 fill="none"
@@ -80,15 +83,15 @@ const Profiles = () => {
           </div>
         </div>
 
-        <div
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4"
-        >
-          {filteredProfiles.map((student) => (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+          {filteredProfiles.map((student, index) => (
             <ProfileCard
               key={student.rollno}
               student={student}
               onView={() => setSelectedImg(`${baseUrl}classmeats/${student.profileUrl}`)}
               isDark={isDark}
+              borderColor={borderColors[index % borderColors.length]}
+              index={index}
             />
           ))}
         </div>
@@ -122,7 +125,7 @@ const Profiles = () => {
 
       {showScrollTop && (
         <button
-          className="fixed bottom-8 right-8 w-14 h-14 rounded-full bg-gradient-to-r from-violet-600 to-pink-600 text-white flex items-center justify-center shadow-lg shadow-purple-500/30 hover:scale-110 transition-transform duration-300 z-40"
+          className="fixed bottom-8 right-8 w-14 h-14 rounded-full bg-rainbow text-white flex items-center justify-center shadow-lg shadow-purple-500/30 hover:scale-110 transition-transform duration-300 z-40"
           onClick={scrollToTop}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2}>
@@ -134,13 +137,22 @@ const Profiles = () => {
   )
 }
 
-const ProfileCard = ({ student, onView, isDark }) => {
+const ProfileCard = ({ student, onView, isDark, borderColor, index }) => {
   const { name, rollno, insta, linkedin, profileUrl, github } = student
   const hasPhoto = profileUrl && profileUrl.trim() !== ''
   const imgSrc = hasPhoto ? `classmeats/${profileUrl}` : null
 
+  function capitalizeNames(str) {
+    const words = str.split(' ')
+    const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    return capitalizedWords.join(' ')
+  }
+
   return (
-    <div className="group relative bg-white/5 dark:bg-gray-800/50 rounded-xl overflow-hidden hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300 hover:-translate-y-2">
+    <div
+      className={`group relative bg-white/5 dark:bg-gray-800/50 rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl animate-bounce-in border-2 ${borderColor}`}
+      style={{ animationDelay: `${index * 0.05}s` }}
+    >
       <div
         className="aspect-square overflow-hidden cursor-pointer"
         onClick={hasPhoto ? onView : undefined}
@@ -161,8 +173,8 @@ const ProfileCard = ({ student, onView, isDark }) => {
       </div>
 
       <div className={`absolute bottom-0 left-0 right-0 p-3 ${isDark ? 'bg-gradient-to-t from-gray-900' : 'bg-gradient-to-t from-white'} to-transparent`}>
-        <h3 className={`font-semibold text-sm truncate ${isDark ? 'text-white' : 'text-gray-900'}`}>
-          {name.toLowerCase()}
+        <h3 className={`font-semibold text-sm truncate capitalize ${isDark ? 'text-white' : 'text-gray-900'}`}>
+          {capitalizeNames(name)}
         </h3>
         <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
           {rollno}
@@ -175,7 +187,7 @@ const ProfileCard = ({ student, onView, isDark }) => {
             href={insta}
             target="_blank"
             rel="noreferrer"
-            className="w-8 h-8 rounded-full bg-pink-500/90 flex items-center justify-center"
+            className="w-8 h-8 rounded-full bg-gradient-to-br from-[#f06595] to-[#ff6b6b] flex items-center justify-center hover:scale-110 transition-transform"
             onClick={(e) => e.stopPropagation()}
           >
             <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -188,7 +200,7 @@ const ProfileCard = ({ student, onView, isDark }) => {
             href={linkedin}
             target="_blank"
             rel="noreferrer"
-            className="w-8 h-8 rounded-full bg-blue-500/90 flex items-center justify-center"
+            className="w-8 h-8 rounded-full bg-gradient-to-br from-[#4dabf7] to-[#228be6] flex items-center justify-center hover:scale-110 transition-transform"
             onClick={(e) => e.stopPropagation()}
           >
             <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -201,7 +213,7 @@ const ProfileCard = ({ student, onView, isDark }) => {
             href={github}
             target="_blank"
             rel="noreferrer"
-            className="w-8 h-8 rounded-full bg-gray-800/90 flex items-center justify-center"
+            className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center hover:scale-110 transition-transform"
             onClick={(e) => e.stopPropagation()}
           >
             <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">

@@ -1,23 +1,28 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useTheme } from '../context/ThemeContext'
 
-const ReviewCard = ({ name, role, image, quote }) => {
+const cardAccents = [
+  'border-t-[#ff6b6b]', 'border-t-[#ffa94d]', 'border-t-[#ffd43b]',
+  'border-t-[#69db7c]', 'border-t-[#4dabf7]', 'border-t-[#9775fa]', 'border-t-[#f06595]',
+]
+
+const ReviewCard = ({ name, role, image, quote, accent }) => {
   const { isDark } = useTheme()
 
   return (
     <div
-      className={`flex-shrink-0 w-80 md:w-96 p-6 rounded-2xl mx-4 ${
+      className={`flex-shrink-0 w-80 md:w-96 p-6 rounded-2xl mx-4 border-t-4 ${accent} ${
         isDark
           ? 'bg-gray-800/80 hover:bg-gray-800'
           : 'bg-white hover:bg-gray-50'
       } shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2`}
     >
       <div className="flex items-center gap-4 mb-4">
-        <div className="w-14 h-14 rounded-full overflow-hidden ring-2 ring-violet-500">
+        <div className="w-14 h-14 rounded-full overflow-hidden ring-2 ring-[#9775fa]">
           {image ? (
             <img src={image} alt={name} className="w-full h-full object-cover" />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center text-white text-xl font-bold">
+            <div className="w-full h-full bg-rainbow flex items-center justify-center text-white text-xl font-bold">
               {name.charAt(0)}
             </div>
           )}
@@ -34,7 +39,7 @@ const ReviewCard = ({ name, role, image, quote }) => {
 
       <div className="relative">
         <svg
-          className="absolute -top-2 -left-1 w-8 h-8 text-violet-500 opacity-30"
+          className="absolute -top-2 -left-1 w-8 h-8 text-[#9775fa] opacity-30"
           fill="currentColor"
           viewBox="0 0 24 24"
         >
@@ -50,6 +55,7 @@ const ReviewCard = ({ name, role, image, quote }) => {
 
 const Reviews = () => {
   const scrollRef = useRef()
+  const autoScrollRef = useRef(null)
   const { isDark } = useTheme()
 
   const reviews = [
@@ -86,24 +92,80 @@ const Reviews = () => {
     }
   }
 
+  const scrollByCards = (direction = 1) => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: direction * 340, behavior: 'smooth' })
+    }
+  }
+
+  useEffect(() => {
+    const startAutoScroll = () => {
+      autoScrollRef.current = window.setInterval(() => {
+        if (!scrollRef.current) {
+          return
+        }
+
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
+        const reachedEnd = scrollLeft + clientWidth >= scrollWidth - 20
+
+        if (reachedEnd) {
+          scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' })
+        } else {
+          scrollByCards(1)
+        }
+      }, 3500)
+    }
+
+    startAutoScroll()
+
+    return () => {
+      if (autoScrollRef.current) {
+        window.clearInterval(autoScrollRef.current)
+      }
+    }
+  }, [])
+
+  const pauseAutoScroll = () => {
+    if (autoScrollRef.current) {
+      window.clearInterval(autoScrollRef.current)
+      autoScrollRef.current = null
+    }
+  }
+
+  const resumeAutoScroll = () => {
+    if (autoScrollRef.current) {
+      return
+    }
+    autoScrollRef.current = window.setInterval(() => {
+      if (!scrollRef.current) {
+        return
+      }
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
+      const reachedEnd = scrollLeft + clientWidth >= scrollWidth - 20
+      if (reachedEnd) {
+        scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' })
+      } else {
+        scrollByCards(1)
+      }
+    }, 3500)
+  }
+
   return (
     <section
       id="reviews"
       className={`relative py-20 ${
-        isDark ? 'bg-gray-950' : 'bg-gray-100'
+        isDark ? 'bg-[#0f0f1a]' : 'bg-gray-100'
       }`}
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-violet-500/10 rounded-full blur-[80px]" />
-        <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-pink-500/10 rounded-full blur-[80px]" />
+        <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-[#9775fa]/10 rounded-full blur-[80px]" />
+        <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-[#f06595]/10 rounded-full blur-[80px]" />
       </div>
 
       <div className="relative z-10">
         <div className="text-center mb-12 px-6">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              Faculty Opinions
-            </span>
+            <span className="text-rainbow">Faculty Opinions</span>
           </h2>
           <p className={`max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
             What our teachers have to say about the 2022 batch
@@ -113,18 +175,34 @@ const Reviews = () => {
         <div
           ref={scrollRef}
           onWheel={handleScroll}
+          onMouseEnter={pauseAutoScroll}
+          onMouseLeave={resumeAutoScroll}
           className="flex overflow-x-auto scrollbar-hide px-6 py-4 cursor-grab active:cursor-grabbing"
           style={{ scrollBehavior: 'smooth' }}
         >
           {reviews.map((review, index) => (
-            <ReviewCard key={index} {...review} />
+            <ReviewCard key={index} {...review} accent={cardAccents[index % cardAccents.length]} />
           ))}
           {reviews.map((review, index) => (
-            <ReviewCard key={`dup-${index}`} {...review} />
+            <ReviewCard key={`dup-${index}`} {...review} accent={cardAccents[index % cardAccents.length]} />
           ))}
         </div>
 
         <div className="text-center mt-6 px-6">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <button
+              onClick={() => scrollByCards(-1)}
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${isDark ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-white text-gray-900 hover:bg-gray-100'} shadow-md`}
+            >
+              ← Previous
+            </button>
+            <button
+              onClick={() => scrollByCards(1)}
+              className="rounded-full px-4 py-2 text-sm font-semibold bg-rainbow text-white shadow-md hover:opacity-90 transition-opacity"
+            >
+              Next →
+            </button>
+          </div>
           <p className={`text-sm ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
             ← Scroll horizontally to see more →
           </p>

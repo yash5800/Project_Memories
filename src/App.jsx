@@ -1,12 +1,9 @@
 import React, { Suspense } from 'react'
 import { ThemeProvider } from './context/ThemeContext'
-
-const NavBar = React.lazy(() => import('./components/NavBar'))
-const StartGroup = React.lazy(() => import('./components/StartGroup'))
-const Branch = React.lazy(() => import('./components/Branch'))
-const Profiles = React.lazy(() => import('./components/Profiles'))
-const Projects = React.lazy(() => import('./components/Projects'))
-const Reviews = React.lazy(() => import('./components/Reviews'))
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import HomePage from './pages/home'
+import BookPage from './pages/book'
+import MusicProvider from './components/MusicProvider'
 
 const Loading = () => (
   <div className="min-h-screen bg-gray-950 flex items-center justify-center">
@@ -14,22 +11,19 @@ const Loading = () => (
   </div>
 )
 
+const routerBasename = import.meta.env.BASE_URL.replace(/\/$/, '')
+
 const App = () => {
   return (
     <ThemeProvider>
+      <MusicProvider />
       <Suspense fallback={<Loading />}>
-        <main className="min-h-screen bg-gray-950">
-          <NavBar />
-          <StartGroup />
-          <Branch />
-          <Profiles />
-          <Projects />
-          <Reviews />
-          
-          <footer className="py-8 text-center text-gray-500 text-sm bg-gray-950">
-            <p>© 2024 22 Batch CSE • Made with ❤️</p>
-          </footer>
-        </main>
+        <BrowserRouter basename={routerBasename}> 
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/book" element={<BookPage />} />
+          </Routes>
+        </BrowserRouter>
       </Suspense>
     </ThemeProvider>
   )
