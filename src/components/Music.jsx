@@ -197,6 +197,19 @@ const Music = () => {
     renderWave(modeRef.current)
   }, [isDark, renderWave])
 
+  useEffect(() => {
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        const ctx = audioContextRef.current
+        if (ctx && ctx.state === 'suspended') {
+          ctx.resume()
+        }
+      }
+    }
+    document.addEventListener('visibilitychange', onVisibilityChange)
+    return () => document.removeEventListener('visibilitychange', onVisibilityChange)
+  }, [])
+
   const handleToggleMusic = async () => {
     const audio = audioRef.current
     if (!audio) return
@@ -217,6 +230,11 @@ const Music = () => {
       await audio.play()
     } catch {
       // autoplay blocked
+    }
+
+    const ctx = audioContextRef.current
+    if (ctx && ctx.state === 'suspended') {
+      await ctx.resume()
     }
   }
 
