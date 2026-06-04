@@ -21,7 +21,7 @@ export const Experience = () => {
       > */}
       <Book  />
       {/* </Float> */}
-      <OrbitControls minDistance={2} maxDistance={5} />
+      <OrbitControls minDistance={0.5} maxDistance={5} />
       <Environment preset="city" intensity={0.45} />
       <directionalLight
         position={[2, 5, 2]}
