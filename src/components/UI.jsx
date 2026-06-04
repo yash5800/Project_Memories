@@ -55,7 +55,7 @@ export const UI = () => {
   return (
     <>
       <main className=" pointer-events-none select-none z-10 fixed inset-0 flex justify-between flex-col">
-        <div className="w-full pointer-events-auto flex items-center justify-between p-6 md:p-8 bg-black/60 backdrop-blur-xl">
+        <div className="w-full pointer-events-auto flex items-center justify-between p-6 md:p-8 bg-transparent">
           <Link
             to="/"
             className={`${btnBase} hover:border-[#ffa94d] hover:text-[#ffa94d]`}

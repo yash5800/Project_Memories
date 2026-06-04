@@ -54,15 +54,13 @@ const NavBar = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? isDark
-              ? 'bg-[#0f0f1a]/95 backdrop-blur-md shadow-lg shadow-black/20'
-              : 'bg-white/95 backdrop-blur-md shadow-lg shadow-black/10'
-            : 'bg-transparent'
-        } ${isDark ? 'text-white' : 'text-gray-900'}`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${ 
+          isDark
+              ? 'bg-[#0f0f1a]/50 backdrop-blur-md shadow-lg shadow-black/20'
+              : 'bg-white/50 backdrop-blur-md shadow-lg shadow-black/10'
+        } ${isDark ? 'text-white' : 'text-black'}`}
       >
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-6 py-2 flex justify-between items-center">
           <a href="#home" className="group" onClick={(event) => handleSectionNav(event, '#home')}>
             <h1 className="text-2xl font-bold tracking-wider relative">
               <span className="relative z-10">Memories</span>
