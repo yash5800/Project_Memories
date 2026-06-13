@@ -187,23 +187,6 @@ const Reviews = () => {
               />
             ))}
           </div>
-
-          <div className="flex items-center justify-center gap-3 mt-4">
-            <button
-              onClick={goPrev}
-              className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
-                isDark ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-white text-gray-900 hover:bg-gray-100'
-              } shadow-md`}
-            >
-              ← Previous
-            </button>
-            <button
-              onClick={goNext}
-              className="rounded-full px-4 py-2 text-sm font-semibold bg-rainbow text-white shadow-md hover:opacity-90 transition-opacity"
-            >
-              Next →
-            </button>
-          </div>
         </div>
       </div>
     </section>
