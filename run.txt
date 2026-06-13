@@ -1,0 +1,6 @@
+deploy
+npm run deploy
+
+
+to push github pages
+npm run deploy

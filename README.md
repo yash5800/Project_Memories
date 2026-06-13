@@ -1,12 +1,34 @@
-# React + Vite
+# Project Memories
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive 3D portfolio/memories website built with React, Three.js, and Tailwind CSS.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **3D Flipbook** — Interactive 3D book with skinned mesh page turning animations, auto-flip mode, and orbit controls
+- **Classmate Profiles** — Browse batchmate profiles with photos and details
+- **Projects Gallery** — Showcase of past projects with descriptions
+- **Reviews/Testimonials** — Feedback from peers
+- **Dark Theme** — Full dark mode UI throughout
+- **Background Music** — Optional ambient music player
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React 19 + Vite
+- @react-three/fiber + @react-three/drei (3D rendering)
+- Three.js (3D engine)
+- Tailwind CSS (styling)
+- Jotai (state management)
+- React Router (routing)
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+## Deploy
+
+```bash
+npm run deploy
+```
