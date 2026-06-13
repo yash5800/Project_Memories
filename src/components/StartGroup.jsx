@@ -5,7 +5,7 @@ const StartGroup = () => {
   return (
     <div
       id="home"
-      className="relative h-[85vh] min-h-[600px] w-full overflow-hidden"
+      className="relative h-screen min-h-[600px] w-full overflow-hidden"
     >
       <Link to="/book">
         <div
