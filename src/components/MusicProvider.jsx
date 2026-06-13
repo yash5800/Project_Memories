@@ -17,7 +17,6 @@ const MusicProvider = () => {
     audio.loop = true
     audio.preload = 'auto'
     audio.playsInline = true
-    audio.muted = true
     audio.load()
 
     setIsReady(true)
@@ -27,8 +26,6 @@ const MusicProvider = () => {
 
     audio.addEventListener('play', onPlay)
     audio.addEventListener('pause', onPause)
-
-    audio.play().catch(() => {})
 
     return () => {
       audio.removeEventListener('play', onPlay)

@@ -36,6 +36,8 @@ const buildWavePath = (amplitude, phase, waveformArray) => {
 
 const Music = () => {
   const isPlaying = useMusicStore((s) => s.isPlaying)
+  const musicStarted = useMusicStore((s) => s.musicStarted)
+  const setMusicStarted = useMusicStore((s) => s.setMusicStarted)
   const animationFrameRef = useRef(null)
   const wavePathRef = useRef(null)
   const glowPathRef = useRef(null)
@@ -219,6 +221,12 @@ const Music = () => {
       if (ctx && ctx.state === 'suspended') {
         await ctx.resume()
       }
+      return
+    }
+
+    if (musicStarted && !audio.paused && !audio.muted) {
+      setMusicStarted(false)
+      await setupAudioAnalyser()
       return
     }
 

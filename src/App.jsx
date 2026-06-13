@@ -5,6 +5,7 @@ import HomePage from './pages/home'
 import BookPage from './pages/book'
 import GamesPage from './pages/games'
 import MusicProvider from './components/MusicProvider'
+import Preloader from './components/Preloader'
 
 const Loading = () => (
   <div className="min-h-screen bg-gray-950 dark:bg-gray-950 flex items-center justify-center">
@@ -17,16 +18,18 @@ const routerBasename = import.meta.env.BASE_URL.replace(/\/$/, '')
 const App = () => {
   return (
     <ThemeProvider>
-      <MusicProvider />
-      <Suspense fallback={<Loading />}>
-        <BrowserRouter basename={routerBasename}> 
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/book" element={<BookPage />} />
-            <Route path="/games" element={<GamesPage />} />
-          </Routes>
-        </BrowserRouter>
-      </Suspense>
+      <BrowserRouter basename={routerBasename}> 
+        <Preloader>
+          <MusicProvider />
+          <Suspense fallback={<Loading />}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/book" element={<BookPage />} />
+              <Route path="/games" element={<GamesPage />} />
+            </Routes>
+          </Suspense>
+        </Preloader>
+      </BrowserRouter>
     </ThemeProvider>
   )
 }
