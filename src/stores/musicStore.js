@@ -19,8 +19,31 @@ export const useMusicStore = create((set) => ({
 export const startMusic = () => {
   const audio = audioRef.current
   if (!audio) return
+
   audio.muted = false
+
+  if (!audioContextRef.current) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext
+    const audioContext = new AudioContextClass()
+
+    const analyser = audioContext.createAnalyser()
+    analyser.fftSize = 128
+    analyser.smoothingTimeConstant = 0.9
+
+    dataArrayRef.current = new Uint8Array(analyser.frequencyBinCount)
+    waveformArrayRef.current = new Uint8Array(analyser.fftSize)
+
+    const source = audioContext.createMediaElementSource(audio)
+    source.connect(analyser)
+    analyser.connect(audioContext.destination)
+
+    audioContextRef.current = audioContext
+    audioSourceRef.current = source
+    analyserRef.current = analyser
+  }
+
   audio.play().catch(() => {})
+
   const ctx = audioContextRef.current
   if (ctx && ctx.state === 'suspended') {
     ctx.resume()

@@ -4,7 +4,7 @@ import { startMusic, useMusicStore } from '../stores/musicStore'
 
 const BASE = import.meta.env.BASE_URL
 
-const ALL_IMAGES = [
+const PRIORITY_IMAGES = [
   `${BASE}StartGroup.jpg`,
   `${BASE}StartGroup.png`,
   `${BASE}textures/book-cover.png`,
@@ -12,6 +12,9 @@ const ALL_IMAGES = [
   ...Array.from({ length: 26 }, (_, i) => `${BASE}textures/pg${i + 1}.jpg`),
   ...Array.from({ length: 18 }, (_, i) => `${BASE}projectBanners/${i + 1}.png`),
   `${BASE}icons/info.png`,
+]
+
+const DEFERRED_IMAGES = [
   `${BASE}classmeats/22-01.png`,
   `${BASE}classmeats/22-02.jpeg`,
   `${BASE}classmeats/22-03.jpg`,
@@ -86,42 +89,72 @@ const ALL_IMAGES = [
   `${BASE}classmeats/23-06.jpg`,
 ]
 
+const progressMessages = [
+  { threshold: 0, message: 'Hold tight, memories are loading...' },
+  { threshold: 20, message: 'Gathering classmate photos...' },
+  { threshold: 35, message: 'Preparing the 3D flipbook...' },
+  { threshold: 50, message: 'Loading faculty reviews...' },
+  { threshold: 65, message: 'Polishing project banners...' },
+  { threshold: 80, message: 'Warming up the music...' },
+  { threshold: 92, message: 'Almost there...' },
+]
+
 const Preloader = ({ children }) => {
   const [progress, setProgress] = useState(0)
   const [ready, setReady] = useState(false)
   const [started, setStarted] = useState(false)
+  const [message, setMessage] = useState(progressMessages[0].message)
   const setMusicStarted = useMusicStore((s) => s.setMusicStarted)
   const navigate = useNavigate()
 
   useEffect(() => {
     let cancelled = false
     let loaded = 0
-    const total = ALL_IMAGES.length
+    const total = PRIORITY_IMAGES.length
+    const fallbackTimer = setTimeout(() => {
+      if (!cancelled) setReady(true)
+    }, 10000)
 
     const onLoad = () => {
       if (cancelled) return
       loaded++
-      setProgress(Math.min(100, Math.round((loaded / total) * 100)))
+      const pct = Math.min(100, Math.round((loaded / total) * 100))
+      setProgress(pct)
       if (loaded >= total) {
+        clearTimeout(fallbackTimer)
         setReady(true)
       }
     }
 
-    ALL_IMAGES.forEach((src) => {
+    PRIORITY_IMAGES.forEach((src) => {
       const img = new Image()
       img.onload = onLoad
       img.onerror = onLoad
       img.src = src
     })
 
-    return () => { cancelled = true }
+    return () => { cancelled = true; clearTimeout(fallbackTimer) }
   }, [])
+
+  useEffect(() => {
+    let current = progressMessages[0].message
+    for (const entry of progressMessages) {
+      if (progress >= entry.threshold) {
+        current = entry.message
+      }
+    }
+    setMessage(current)
+  }, [progress])
 
   const handleBegin = useCallback(() => {
     startMusic()
     setMusicStarted(true)
     setStarted(true)
     navigate('/')
+    DEFERRED_IMAGES.forEach((src) => {
+      const img = new Image()
+      img.src = src
+    })
   }, [navigate, setMusicStarted])
 
   return (
@@ -140,7 +173,8 @@ const Preloader = ({ children }) => {
           {!ready ? (
             <div>
               <div className="w-16 h-16 border-[3px] border-[#ffa94d] border-t-transparent rounded-full animate-spin mx-auto mb-8" />
-              <p className="text-white/60 text-xl mb-6 tracking-wider">Loading memories...</p>
+              <p className="text-white/80 text-lg mb-2 tracking-wide min-h-[2rem] transition-all duration-500">{message}</p>
+              <p className="text-white/40 text-sm mb-6 italic">Loading memories...</p>
               <div className="w-64 h-1.5 bg-white/10 rounded-full overflow-hidden mx-auto">
                 <div
                   className="h-full bg-rainbow rounded-full transition-all duration-300 ease-out"
