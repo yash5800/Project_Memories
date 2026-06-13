@@ -58,33 +58,56 @@ const Reviews = () => {
   const autoScrollRef = useRef(null)
   const { isDark } = useTheme()
 
-  const reviews = [
-    {
-      name: 'Dr. Ramesh Kumar',
-      role: 'Professor & HOD',
-      quote: 'The 2022 batch has been one of the most innovative and collaborative groups I have taught. Their projects reflect not just technical skill but genuine creativity and problem-solving mindset.',
-    },
-    {
-      name: 'Prof. Sarah Johnson',
-      role: 'Associate Professor',
-      quote: 'Watching these students grow from first-year beginners to confident engineers has been rewarding. Their dedication to learning and supporting each other is commendable.',
-    },
-    {
-      name: 'Dr. Michael Chen',
-      role: 'Assistant Professor',
-      quote: 'The enthusiasm this batch showed in hackathons and coding competitions was infectious. They consistently pushed boundaries and delivered outstanding results.',
-    },
-    {
-      name: 'Prof. Emily Watson',
-      role: 'Department Coordinator',
-      quote: 'Our 2022 CSE students have set new benchmarks for excellence. Their teamwork and mutual support made every challenge worth facing together.',
-    },
-    {
-      name: 'Dr. Arjun Reddy',
-      role: 'Senior Faculty',
-      quote: 'The creativity and innovation displayed by this batch in their final year projects exceeded all expectations. They are truly the future of technology.',
-    },
-  ]
+const reviews = [
+  {
+    name: 'Dr. M. Babu Rao',
+    role: 'Professor & HOD',
+    quote:
+      'It has been a privilege to witness this batch grow into confident and capable individuals. I am confident that your dedication, perseverance, and values will guide you toward remarkable achievements in your future endeavors.',
+  },
+  {
+    name: 'Mr. K. Bhaskar',
+    role: 'Assistant Professor',
+    quote:
+      'It has always been a pleasure teaching this batch and guiding you in achieving your goals throughout these years. I wish each of you continued success and fulfillment in all your future pursuits.',
+  },
+  {
+    name: 'Dr. Y. Aditya',
+    role: 'Associate Professor',
+    quote:
+      'Your curiosity, enthusiasm for learning, and commitment to excellence have consistently stood out. May you continue to embrace challenges with confidence and make meaningful contributions to society.',
+  },
+  {
+    name: 'Mr. M. N. Sathish Kumar',
+    role: 'Assistant Professor',
+    quote:
+      'This batch has demonstrated resilience, teamwork, and a genuine passion for growth. May your professional journey be defined by integrity, innovation, and lifelong learning.',
+  },
+  {
+    name: 'Dr. J. A. Ranga Babu',
+    role: 'Associate Professor',
+    quote:
+      'Watching you evolve from students into responsible professionals has been truly rewarding. I hope you pursue your aspirations with determination and leave a positive impact wherever you go.',
+  },
+  {
+    name: 'Dr. N. Siva Chintaiah',
+    role: 'Associate Professor',
+    quote:
+      'Success is built upon discipline, perseverance, and continuous self-improvement. I encourage each of you to remain grounded in your values while striving for excellence in your chosen paths.',
+  },
+  {
+    name: 'Dr. S. Ravi',
+    role: 'Associate Professor',
+    quote:
+      'You have shown the potential to overcome obstacles and transform opportunities into achievements. May you continue to inspire others through your dedication, professionalism, and character.',
+  },
+  {
+    name: 'Dr. T. Nagamani',
+    role: 'Associate Professor',
+    quote:
+      'As you embark on the next chapter of your lives, remember that true success lies not only in accomplishments but also in the positive difference you make in the lives of others. Wishing you a future filled with purpose and success.',
+  },
+];
 
   const handleScroll = (e) => {
     if (scrollRef.current) {

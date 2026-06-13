@@ -56,18 +56,16 @@ export const UI = () => {
     <>
       <main className=" pointer-events-none select-none z-10 fixed inset-0 flex justify-between flex-col">
         <div className="w-full pointer-events-auto flex items-center justify-between p-6 md:p-8 bg-transparent">
+          <div>
+            <Link
+              to="/"
+              className="bg-black/20 text-white text-lg border-transparent p-3 rounded-2xl"
+            >
+              Home
+            </Link>
+          </div>
           <div className="flex items-center gap-3">
             <Music />
-            <button
-              className={`${btnBase} ${
-                floatPaused
-                  ? "bg-white/90 text-black border-transparent"
-                  : "bg-black/30 text-white border-transparent hover:border-[#69db7c]"
-              }`}
-              onClick={() => setFloatPaused((value) => !value)}
-            >
-              {floatPaused ? "Resume Floating" : "Pause Floating"}
-            </button>
           </div>
         </div>
         <div className="w-full overflow-auto pointer-events-auto flex justify-center">
