@@ -5,8 +5,8 @@ import { useTheme } from '../context/ThemeContext'
 const baseUrl = import.meta.env.BASE_URL || '/'
 
 const milestones = [
-  { year: '2022', label: 'First Step', color: '#ff6b6b', icon: '👣', desc: '72 curious minds stepped into college. The journey began.' },
-  { year: '2023', label: 'Growing Strong', color: '#ffd43b', icon: '🌱', desc: 'Late-night study sessions, first hackathons, friendships that clicked.' },
+  { year: '2022', label: 'First Step', color: '#ff6b6b', icon: '👣', desc: '66 curious minds stepped into college. The journey began.' },
+  { year: '2023', label: 'Growing Strong', color: '#ffd43b', icon: '🌱', desc: 'The final pieces fell into place, completing our batch of 72. A shared journey was ready to begin.' },
   { year: '2024', label: 'Building Dreams', color: '#69db7c', icon: '⚡', desc: 'Projects came alive. Ideas turned into code. We found our rhythm.' },
   { year: '2025', label: 'Almost There', color: '#4dabf7', icon: '🚀', desc: 'Internships, placements, and the final sprint toward graduation.' },
   { year: '2026', label: 'Graduation', color: '#9775fa', icon: '🎓', desc: 'Four years, countless memories. This is where we shine.' },
@@ -104,19 +104,18 @@ const Branch = () => {
       </div>
 
       <div className="relative mt-24 max-w-5xl mx-auto">
-        <div className={`absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 ${isDark ? 'bg-white/10' : 'bg-gradient-to-b from-[#ff6b6b]/30 via-[#69db7c]/30 to-[#9775fa]/30'}`} />
+        <div className={`absolute left-4 sm:left-1/2 top-0 bottom-0 w-0.5 sm:-translate-x-1/2 ${isDark ? 'bg-white/10' : 'bg-gradient-to-b from-[#ff6b6b]/30 via-[#69db7c]/30 to-[#9775fa]/30'}`} />
 
         <div className="space-y-16">
           {milestones.map((m, i) => {
-            const ShapeComp = shapeMap[shapes[i]]
+            const ShapeComp = shapeMap[shapes[i % shapes.length]]
             const isLeft = i % 2 === 0
             return (
               <div
                 key={i}
-                className="group relative flex items-center gap-6 sm:gap-12"
-                style={{ flexDirection: isLeft ? 'row' : 'row-reverse' }}
+                className={`group relative flex items-start sm:items-center gap-3 sm:gap-12 ${isLeft ? 'flex-row sm:flex-row' : 'flex-row sm:flex-row-reverse'}`}
               >
-                <div className={`flex-1 ${isLeft ? 'text-right' : 'text-left'}`}>
+                <div className={`w-full sm:flex-1 pl-10 sm:pl-0 text-left sm:${isLeft ? 'text-right' : 'text-left'}`}>
                   <div className={`inline-block p-5 rounded-2xl backdrop-blur-sm transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 cursor-default ${
                     isDark
                       ? 'bg-white/5 hover:bg-white/[0.07]'
@@ -136,7 +135,7 @@ const Branch = () => {
                   </div>
                 </div>
 
-                <div className="relative flex-shrink-0 z-10">
+                <div className="absolute left-4 top-5 sm:relative sm:left-auto sm:top-auto -translate-x-1/2 sm:translate-x-0 flex-shrink-0 z-10">
                   <div className="relative transition-transform duration-300 group-hover:scale-125">
                     <ShapeComp color={m.color} />
                   </div>
@@ -145,7 +144,7 @@ const Branch = () => {
                   />
                 </div>
 
-                <div className={`flex-1 ${isLeft ? 'text-left' : 'text-right'}`}>
+                <div className={`hidden sm:block flex-1 ${isLeft ? 'text-left' : 'text-right'}`}>
                   <div className={`h-0 border-t ${isDark ? 'border-white/5' : 'border-transparent'}`} />
                 </div>
               </div>
