@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useTheme } from '../context/ThemeContext'
 
 const cardAccents = [
@@ -6,29 +6,25 @@ const cardAccents = [
   'border-t-[#69db7c]', 'border-t-[#4dabf7]', 'border-t-[#9775fa]', 'border-t-[#f06595]',
 ]
 
-const ReviewCard = ({ name, role, image, quote, accent }) => {
+const ReviewCard = ({ name, role, quote, accent }) => {
   const { isDark } = useTheme()
 
   return (
     <div
-      className={`flex-shrink-0 w-80 md:w-96 p-6 rounded-2xl mx-4 border-t-4 ${accent} ${
+      className={`w-full p-6 rounded-2xl border-t-4 ${accent} ${
         isDark
-          ? 'bg-gray-800/80 hover:bg-gray-800'
-          : 'bg-white hover:bg-gray-50'
-      } shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2`}
+          ? 'bg-gray-800/80'
+          : 'bg-white'
+      } shadow-xl`}
     >
       <div className="flex items-center gap-4 mb-4">
-        <div className="w-14 h-14 rounded-full overflow-hidden ring-2 ring-[#9775fa]">
-          {image ? (
-            <img src={image} alt={name} className="w-full h-full object-cover" />
-          ) : (
-            <div className="w-full h-full bg-rainbow flex items-center justify-center text-white text-xl font-bold">
-              {name.charAt(0)}
-            </div>
-          )}
+        <div className="w-14 h-14 rounded-full overflow-hidden ring-2 ring-[#9775fa] flex-shrink-0">
+          <div className="w-full h-full bg-rainbow flex items-center justify-center text-white text-xl font-bold">
+            {name.charAt(0)}
+          </div>
         </div>
-        <div>
-          <h4 className={`font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+        <div className="min-w-0">
+          <h4 className={`font-bold truncate ${isDark ? 'text-white' : 'text-gray-900'}`}>
             {name}
           </h4>
           <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
@@ -37,7 +33,7 @@ const ReviewCard = ({ name, role, image, quote, accent }) => {
         </div>
       </div>
 
-      <div className="relative">
+      <div className="relative pl-3">
         <svg
           className="absolute -top-2 -left-1 w-8 h-8 text-[#9775fa] opacity-30"
           fill="currentColor"
@@ -52,11 +48,6 @@ const ReviewCard = ({ name, role, image, quote, accent }) => {
     </div>
   )
 }
-
-const Reviews = () => {
-  const scrollRef = useRef()
-  const autoScrollRef = useRef(null)
-  const { isDark } = useTheme()
 
 const reviews = [
   {
@@ -107,71 +98,45 @@ const reviews = [
     quote:
       'As you embark on the next chapter of your lives, remember that true success lies not only in accomplishments but also in the positive difference you make in the lives of others. Wishing you a future filled with purpose and success.',
   },
-];
+]
 
-  const handleScroll = (e) => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollLeft += e.deltaY
-    }
-  }
+const Reviews = () => {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const autoScrollRef = useRef(null)
+  const { isDark } = useTheme()
 
-  const scrollByCards = (direction = 1) => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: direction * 340, behavior: 'smooth' })
-    }
-  }
-
-  useEffect(() => {
-    const startAutoScroll = () => {
-      autoScrollRef.current = window.setInterval(() => {
-        if (!scrollRef.current) {
-          return
-        }
-
-        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
-        const reachedEnd = scrollLeft + clientWidth >= scrollWidth - 20
-
-        if (reachedEnd) {
-          scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' })
-        } else {
-          scrollByCards(1)
-        }
-      }, 3500)
-    }
-
-    startAutoScroll()
-
-    return () => {
-      if (autoScrollRef.current) {
-        window.clearInterval(autoScrollRef.current)
-      }
+  const stopAutoScroll = useCallback(() => {
+    if (autoScrollRef.current) {
+      clearInterval(autoScrollRef.current)
+      autoScrollRef.current = null
     }
   }, [])
 
-  const pauseAutoScroll = () => {
-    if (autoScrollRef.current) {
-      window.clearInterval(autoScrollRef.current)
-      autoScrollRef.current = null
-    }
-  }
-
-  const resumeAutoScroll = () => {
-    if (autoScrollRef.current) {
-      return
-    }
-    autoScrollRef.current = window.setInterval(() => {
-      if (!scrollRef.current) {
-        return
-      }
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
-      const reachedEnd = scrollLeft + clientWidth >= scrollWidth - 20
-      if (reachedEnd) {
-        scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' })
-      } else {
-        scrollByCards(1)
-      }
+  const startAutoScroll = useCallback(() => {
+    stopAutoScroll()
+    autoScrollRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % reviews.length)
     }, 3500)
-  }
+  }, [stopAutoScroll])
+
+  useEffect(() => {
+    startAutoScroll()
+    return stopAutoScroll
+  }, [startAutoScroll, stopAutoScroll])
+
+  const goTo = useCallback((index) => {
+    setCurrentIndex(index)
+    stopAutoScroll()
+    startAutoScroll()
+  }, [stopAutoScroll, startAutoScroll])
+
+  const goPrev = useCallback(() => {
+    goTo((currentIndex - 1 + reviews.length) % reviews.length)
+  }, [currentIndex, goTo])
+
+  const goNext = useCallback(() => {
+    goTo((currentIndex + 1) % reviews.length)
+  }, [currentIndex, goTo])
 
   return (
     <section
@@ -195,37 +160,50 @@ const reviews = [
           </p>
         </div>
 
-        <div
-          ref={scrollRef}
-          onWheel={handleScroll}
-          onMouseEnter={pauseAutoScroll}
-          onMouseLeave={resumeAutoScroll}
-          className="flex overflow-x-auto scrollbar-hide px-6 py-4 cursor-grab active:cursor-grabbing"
-          style={{ scrollBehavior: 'smooth' }}
-        >
-          {reviews.map((review, index) => (
-            <ReviewCard key={index} {...review} accent={cardAccents[index % cardAccents.length]} />
-          ))}
-        </div>
+        <div className="max-w-2xl mx-auto px-6">
+          <div className="overflow-hidden rounded-2xl">
+            <div
+              className="flex transition-transform duration-500 ease-out"
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            >
+              {reviews.map((review, index) => (
+                <div key={index} className="w-full flex-shrink-0 px-1">
+                  <ReviewCard {...review} accent={cardAccents[index % cardAccents.length]} />
+                </div>
+              ))}
+            </div>
+          </div>
 
-        <div className="text-center mt-6 px-6">
-          <div className="flex items-center justify-center gap-3 mb-4">
+          <div className="flex items-center justify-center gap-2 mt-6">
+            {reviews.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  i === currentIndex
+                    ? 'w-6 bg-[#9775fa]'
+                    : 'w-2 bg-gray-500/40 hover:bg-gray-500/70'
+                }`}
+              />
+            ))}
+          </div>
+
+          <div className="flex items-center justify-center gap-3 mt-4">
             <button
-              onClick={() => scrollByCards(-1)}
-              className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${isDark ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-white text-gray-900 hover:bg-gray-100'} shadow-md`}
+              onClick={goPrev}
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                isDark ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-white text-gray-900 hover:bg-gray-100'
+              } shadow-md`}
             >
               ← Previous
             </button>
             <button
-              onClick={() => scrollByCards(1)}
+              onClick={goNext}
               className="rounded-full px-4 py-2 text-sm font-semibold bg-rainbow text-white shadow-md hover:opacity-90 transition-opacity"
             >
               Next →
             </button>
           </div>
-          <p className={`text-sm ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-            ← Scroll horizontally to see more →
-          </p>
         </div>
       </div>
     </section>
