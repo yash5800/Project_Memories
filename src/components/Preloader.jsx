@@ -4,7 +4,7 @@ import { startMusic, useMusicStore } from '../stores/musicStore'
 
 const BASE = import.meta.env.BASE_URL
 
-const PRIORITY_IMAGES = [
+const ALL_IMAGES = [
   `${BASE}StartGroup.jpg`,
   `${BASE}StartGroup.png`,
   `${BASE}textures/book-cover.png`,
@@ -12,9 +12,6 @@ const PRIORITY_IMAGES = [
   ...Array.from({ length: 26 }, (_, i) => `${BASE}textures/pg${i + 1}.jpg`),
   ...Array.from({ length: 18 }, (_, i) => `${BASE}projectBanners/${i + 1}.png`),
   `${BASE}icons/info.png`,
-]
-
-const DEFERRED_IMAGES = [
   `${BASE}classmeats/22-01.png`,
   `${BASE}classmeats/22-02.jpeg`,
   `${BASE}classmeats/22-03.jpg`,
@@ -110,10 +107,10 @@ const Preloader = ({ children }) => {
   useEffect(() => {
     let cancelled = false
     let loaded = 0
-    const total = PRIORITY_IMAGES.length
+    const total = ALL_IMAGES.length
     const fallbackTimer = setTimeout(() => {
       if (!cancelled) setReady(true)
-    }, 10000)
+    }, 15000)
 
     const onLoad = () => {
       if (cancelled) return
@@ -126,7 +123,7 @@ const Preloader = ({ children }) => {
       }
     }
 
-    PRIORITY_IMAGES.forEach((src) => {
+    ALL_IMAGES.forEach((src) => {
       const img = new Image()
       img.onload = onLoad
       img.onerror = onLoad
@@ -151,10 +148,6 @@ const Preloader = ({ children }) => {
     setMusicStarted(true)
     setStarted(true)
     navigate('/')
-    DEFERRED_IMAGES.forEach((src) => {
-      const img = new Image()
-      img.src = src
-    })
   }, [navigate, setMusicStarted])
 
   return (

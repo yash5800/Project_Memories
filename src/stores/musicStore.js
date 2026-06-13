@@ -16,6 +16,8 @@ export const useMusicStore = create((set) => ({
   setMusicStarted: (v) => set({ musicStarted: v }),
 }))
 
+let keepAliveInterval = null
+
 export const startMusic = () => {
   const audio = audioRef.current
   if (!audio) return
@@ -48,4 +50,22 @@ export const startMusic = () => {
   if (ctx && ctx.state === 'suspended') {
     ctx.resume()
   }
+
+  const resumeAudioCtx = () => {
+    const c = audioContextRef.current
+    if (c && c.state === 'suspended') {
+      c.resume()
+    }
+  }
+
+  document.addEventListener('visibilitychange', resumeAudioCtx)
+
+  const onEnded = () => {
+    audio.currentTime = 0
+    audio.play().catch(() => {})
+  }
+  audio.addEventListener('ended', onEnded)
+
+  if (keepAliveInterval) clearInterval(keepAliveInterval)
+  keepAliveInterval = setInterval(resumeAudioCtx, 2000)
 }
