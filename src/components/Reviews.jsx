@@ -206,9 +206,6 @@ const reviews = [
           {reviews.map((review, index) => (
             <ReviewCard key={index} {...review} accent={cardAccents[index % cardAccents.length]} />
           ))}
-          {reviews.map((review, index) => (
-            <ReviewCard key={`dup-${index}`} {...review} accent={cardAccents[index % cardAccents.length]} />
-          ))}
         </div>
 
         <div className="text-center mt-6 px-6">
